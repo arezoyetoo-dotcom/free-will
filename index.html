@@ -53,9 +53,18 @@
           <span id="tv-mode-label" class="font-mono text-[11px] hidden md:inline">TV Mode</span>
         </button>
 
-        <button id="export-pdf-btn" title="Export Presentation as 14-Page Landscape PDF" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border border-[#4ade80]/50 text-[#86efac] hover:border-[#86efac]">
+        <a href="free_will_lecture.pptx" download="free_will_lecture.pptx" title="Download Native 16:9 PowerPoint Deck (.pptx) with Speaker Notes" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border border-[#fb923c]/50 text-[#fdba74] hover:border-[#fdba74] flex items-center space-x-1">
+          <span>📊</span>
+          <span class="font-mono text-[11px] hidden md:inline">PowerPoint (.pptx)</span>
+        </a>
+
+        <a href="free_will_lecture.pdf" download="free_will_lecture.pdf" title="Download Native 14-Page Landscape PDF Deck" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border border-[#4ade80]/50 text-[#86efac] hover:border-[#86efac] flex items-center space-x-1">
+          <span>📄</span>
+          <span class="font-mono text-[11px] hidden sm:inline">PDF (.pdf)</span>
+        </a>
+
+        <button id="export-pdf-btn" title="Print to Landscape PDF (Ctrl+P)" class="clinical-btn-ghost text-xs px-2 py-1.5 border border-slate-700 text-slate-300 hover:text-white">
           <span>🖨️</span>
-          <span class="font-mono text-[11px] hidden sm:inline">Save PDF</span>
         </button>
 
         <button id="tv-guide-btn" title="How to run on a TV or use PowerPoint" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border border-[#fde047]/50 text-[#fde047] hover:border-[#fde047]">
@@ -1346,10 +1355,25 @@
             </p>
           </div>
 
-          <div class="p-4 rounded-xl border border-slate-800 bg-[#111520] space-y-2">
-            <span class="text-xs font-mono font-bold text-[#fca5a5] block">METHOD 4: Export to 14-Page Landscape PDF</span>
+          <div class="p-4 rounded-xl border border-slate-800 bg-[#111520] space-y-3">
+            <span class="text-xs font-mono font-bold text-[#fb923c] block">METHOD 4: Native PowerPoint (.pptx) & Vector PDF (.pdf)</span>
             <p class="text-xs text-slate-300 leading-relaxed">
-              If your venue strictly requires a standalone PDF file or USB drive without a browser: click the <strong class="text-white">"🖨️ Save PDF"</strong> button in the header (or press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700">Ctrl+P</kbd>). Destination: <em>Save as PDF</em>, Layout: <em>Landscape</em>. Every slide is formatted into an individual widescreen page!
+              If your venue strictly requires offline presentation files for a USB drive, office computer, or classroom projector without internet, download the generated native 14-slide decks below:
+            </p>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <a href="free_will_lecture.pptx" download="free_will_lecture.pptx" class="px-3 py-2 rounded-lg bg-[#ea580c]/20 hover:bg-[#ea580c]/30 border border-[#f97316]/50 text-[#fdba74] font-mono text-xs font-bold flex items-center space-x-2 transition-all">
+                <span>📊</span>
+                <span>Download PowerPoint Deck (.pptx)</span>
+              </a>
+              <a href="free_will_lecture.pdf" download="free_will_lecture.pdf" class="px-3 py-2 rounded-lg bg-[#16a34a]/20 hover:bg-[#16a34a]/30 border border-[#22c55e]/50 text-[#86efac] font-mono text-xs font-bold flex items-center space-x-2 transition-all">
+                <span>📄</span>
+                <span>Download Vector PDF Deck (.pdf)</span>
+              </a>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono">
+              Files are also saved on your computer at: <br/>
+              <code>\\wsl.localhost\Ubuntu\home\rasaec\Documents\notes\free_will_lecture.pptx</code><br/>
+              <code>\\wsl.localhost\Ubuntu\home\rasaec\Documents\notes\free_will_lecture.pdf</code>
             </p>
           </div>
         </div>

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modeDeckBtn.addEventListener('click', () => setMode('deck'));
   }
 
-  // 4. Slide Deck Controller (8 Slides from presentation notes)
+  // 4. Slide Deck Controller (14 Slides Master Curriculum)
   let currentSlide = 0;
   const slides = document.querySelectorAll('.deck-slide');
   const totalSlides = slides.length;
@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextSlideBtn = document.getElementById('deck-next-btn');
   const toggleNotesBtn = document.getElementById('deck-notes-toggle');
   const notesDrawer = document.getElementById('deck-notes-drawer');
+  const fullscreenBtn = document.getElementById('deck-fullscreen-btn');
 
   function updateSlide(newIdx) {
     if (newIdx < 0 || newIdx >= totalSlides) return;
@@ -104,6 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      deckView.requestFullscreen().catch(err => console.log(err));
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+  }
+
   // Keyboard navigation for Deck
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -116,16 +129,24 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         updateSlide(currentSlide - 1);
       } else if (e.key === 'f' || e.key === 'F') {
-        if (!document.fullscreenElement) {
-          deckView.requestFullscreen().catch(err => console.log(err));
-        } else {
-          document.exitFullscreen();
+        toggleFullscreen();
+      } else if (e.key === 'n' || e.key === 'N') {
+        if (toggleNotesBtn) toggleNotesBtn.click();
+      } else if (e.key === 'Escape') {
+        if (notesDrawer && !notesDrawer.classList.contains('hidden')) {
+          notesDrawer.classList.add('hidden');
         }
       }
     }
 
     if (e.key === 'm' || e.key === 'M') {
       if (audioBtn) audioBtn.click();
+    }
+    if (e.key === 'o' || e.key === 'O') {
+      setMode('odyssey');
+    }
+    if (e.key === 'p' || e.key === 'P') {
+      setMode('deck');
     }
   });
 
@@ -157,10 +178,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnPathRight) btnPathRight.addEventListener('click', () => selectCrossroadPath('right'));
   if (btnPathCenter) btnPathCenter.addEventListener('click', () => selectCrossroadPath('center'));
 
-  // 6. Domino Controls
+  // 6. Upgraded Domino Controls
   const pushDominoBtn = document.getElementById('push-domino-btn');
   const resetDominoBtn = document.getElementById('reset-domino-btn');
   const interveneDominoBtn = document.getElementById('intervene-domino-btn');
+  const pauseDominoBtn = document.getElementById('pause-domino-btn');
+  const stepDominoBtn = document.getElementById('step-domino-btn');
+  const speedDominoBtns = document.querySelectorAll('.domino-speed-btn');
+  const labelModeBtn = document.getElementById('domino-label-mode-btn');
 
   if (pushDominoBtn && dominoSim) {
     pushDominoBtn.addEventListener('click', () => dominoSim.pushFirst());
@@ -171,16 +196,212 @@ document.addEventListener('DOMContentLoaded', () => {
   if (interveneDominoBtn && dominoSim) {
     interveneDominoBtn.addEventListener('click', () => dominoSim.intervene());
   }
+  if (pauseDominoBtn && dominoSim) {
+    pauseDominoBtn.addEventListener('click', () => {
+      const paused = dominoSim.togglePause();
+      pauseDominoBtn.innerHTML = paused ? "<span>▶ Resume</span>" : "<span>⏸ Pause</span>";
+      pauseDominoBtn.classList.toggle('border-amber-500', paused);
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
+  if (stepDominoBtn && dominoSim) {
+    stepDominoBtn.addEventListener('click', () => {
+      dominoSim.stepForward();
+      if (pauseDominoBtn) pauseDominoBtn.innerHTML = "<span>▶ Resume</span>";
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
+  if (speedDominoBtns && dominoSim) {
+    speedDominoBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        speedDominoBtns.forEach(b => b.classList.remove('bg-cyan-500/20', 'text-cyan-300', 'border', 'border-cyan-500/40'));
+        btn.classList.add('bg-cyan-500/20', 'text-cyan-300', 'border', 'border-cyan-500/40');
+        const speed = parseFloat(btn.getAttribute('data-speed')) || 1.0;
+        dominoSim.setSpeed(speed);
+        if (window.soundEngine) window.soundEngine.playClick();
+      });
+    });
+  }
+  if (labelModeBtn && dominoSim) {
+    labelModeBtn.addEventListener('click', () => {
+      const newMode = dominoSim.labelMode === 'cosmic' ? 'physics' : 'cosmic';
+      dominoSim.setLabelMode(newMode);
+      labelModeBtn.textContent = newMode === 'cosmic' 
+        ? "🏷️ Cosmic Causal Chain (Big Bang → You)" 
+        : "🏷️ Classical Physics (C-1 → C-14)";
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
 
-  // 7. Libet Experiment Controls
+  // 7. Neuroscience Protocols (Libet, Haynes, Schurger)
   const libetTriggerBtn = document.getElementById('libet-trigger-btn');
   const libetResetBtn = document.getElementById('libet-reset-btn');
+  const neuroTabBtns = document.querySelectorAll('.neuro-tab-btn');
+  const neuroTitleEl = document.getElementById('neuro-protocol-title');
+  const neuroDescEl = document.getElementById('neuro-protocol-desc');
 
   if (libetTriggerBtn && libetSim) {
     libetTriggerBtn.addEventListener('click', () => libetSim.triggerAction());
   }
   if (libetResetBtn && libetSim) {
     libetResetBtn.addEventListener('click', () => libetSim.reset());
+  }
+
+  if (neuroTabBtns && libetSim) {
+    neuroTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        neuroTabBtns.forEach(b => b.classList.remove('active', 'bg-rose-500/20', 'text-rose-300', 'border', 'border-rose-500/40'));
+        btn.classList.add('active', 'bg-rose-500/20', 'text-rose-300', 'border', 'border-rose-500/40');
+        const mode = btn.getAttribute('data-mode') || 'libet';
+        libetSim.setComparison(mode);
+
+        if (mode === 'haynes') {
+          if (neuroTitleEl) neuroTitleEl.textContent = "John-Dylan Haynes (2008) fMRI Decoding Replica";
+          if (neuroDescEl) neuroDescEl.textContent = "Max Planck fMRI pattern decoding: Frontopolar cortex (BA10) activity reveals the decision 7 to 10 seconds before conscious awareness. Press action to simulate fMRI prediction.";
+        } else if (mode === 'schurger') {
+          if (neuroTitleEl) neuroTitleEl.textContent = "Aaron Schurger (2012) Stochastic Accumulator Replica";
+          if (neuroDescEl) neuroDescEl.textContent = "Stochastic accumulator model: spontaneous background neural noise drifts until it randomly crosses the motor threshold. The urge is constructed at the threshold, not before.";
+        } else {
+          if (neuroTitleEl) neuroTitleEl.textContent = "Benjamin Libet (1983) Oscilloscope Replica";
+          if (neuroDescEl) neuroDescEl.textContent = "Watch the revolving phosphor spot below. Whenever you feel a spontaneous 'urge' to act, press the action button or hit SPACEBAR.";
+        }
+
+        if (window.soundEngine) window.soundEngine.playClick();
+      });
+    });
+  }
+
+  // 7B. Harry Frankfurt Counterexample Simulator
+  const frankfurtVoteABtn = document.getElementById('frankfurt-vote-a-btn');
+  const frankfurtVoteBBtn = document.getElementById('frankfurt-vote-b-btn');
+  const frankfurtChipStatus = document.getElementById('frankfurt-chip-status');
+  const frankfurtVoteCast = document.getElementById('frankfurt-vote-cast');
+  const frankfurtAlternatePoss = document.getElementById('frankfurt-alternate-poss');
+  const frankfurtMoralResp = document.getElementById('frankfurt-moral-resp');
+  const frankfurtAnalysisText = document.getElementById('frankfurt-analysis-text');
+
+  if (frankfurtVoteABtn) {
+    frankfurtVoteABtn.addEventListener('click', () => {
+      if (frankfurtChipStatus) {
+        frankfurtChipStatus.textContent = "DORMANT (0% INTERVENTION)";
+        frankfurtChipStatus.className = "text-emerald-400 font-bold";
+      }
+      if (frankfurtVoteCast) frankfurtVoteCast.textContent = "Candidate A (Voluntary Choice)";
+      if (frankfurtAlternatePoss) frankfurtAlternatePoss.textContent = "NO (Black would have intervened)";
+      if (frankfurtMoralResp) {
+        frankfurtMoralResp.textContent = "YES (Autonomous Volition)";
+        frankfurtMoralResp.className = "text-emerald-400 font-bold";
+      }
+      if (frankfurtAnalysisText) {
+        frankfurtAnalysisText.textContent = "Jones chose Candidate A entirely on his own volition. Black's neural chip remained 100% dormant. Even though Jones literally could not have done otherwise, he is fully morally responsible! Harry Frankfurt proved that moral accountability does not require alternate possibilities.";
+      }
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
+
+  if (frankfurtVoteBBtn) {
+    frankfurtVoteBBtn.addEventListener('click', () => {
+      if (frankfurtChipStatus) {
+        frankfurtChipStatus.textContent = "OVERRIDE TRIGGERED (100% INTERVENTION)";
+        frankfurtChipStatus.className = "text-rose-400 font-bold animate-pulse";
+      }
+      if (frankfurtVoteCast) frankfurtVoteCast.textContent = "Candidate A (FORCED by Chip)";
+      if (frankfurtAlternatePoss) frankfurtAlternatePoss.textContent = "NO (Forced by Chip)";
+      if (frankfurtMoralResp) {
+        frankfurtMoralResp.textContent = "NO (Coerced by Neural Override)";
+        frankfurtMoralResp.className = "text-rose-400 font-bold";
+      }
+      if (frankfurtAnalysisText) {
+        frankfurtAnalysisText.textContent = "Jones hesitated and began to lean toward Candidate B. Black's chip instantly activated and physically hijacked Jones's motor cortex, forcing him to vote Candidate A. Here, Jones is NOT morally responsible because he was coerced.";
+      }
+      if (window.soundEngine) {
+        window.soundEngine.playNeuralBeep(440);
+        window.soundEngine.playClick();
+      }
+    });
+  }
+
+  // 7C. Robert Sapolsky Multiscale Causal Explorer
+  const sapolskyBtns = document.querySelectorAll('.sapolsky-layer-btn');
+  const sapolskyTitle = document.getElementById('sapolsky-layer-title');
+  const sapolskySubstrate = document.getElementById('sapolsky-layer-substrate');
+  const sapolskyDesc = document.getElementById('sapolsky-layer-desc');
+
+  const sapolskyLayers = {
+    second: {
+      title: "1 Second Before Action",
+      substrate: "Substrate: Amygdala, Insula & Prefrontal Cortex",
+      desc: "In the millisecond window preceding behavior, an action potential races across the axon hillock. Did the prefrontal cortex successfully suppress the amygdala's impulse, or did the amygdala dominate? This instantaneous electrochemical balance was determined by the molecular environment of the previous seconds."
+    },
+    minutes: {
+      title: "Minutes Before Action",
+      substrate: "Substrate: Sensory Stimuli, Ambient Temperature & Olfaction",
+      desc: "Minutes earlier, sensory inputs primed the nervous system. The smell of fresh bread, an ambient drop in room temperature, or a passing hostile facial expression subtly biased dopamine receptors. Humans routinely invent noble post-hoc explanations for actions triggered by unconscious environmental priming."
+    },
+    hours: {
+      title: "Hours to Days Prior",
+      substrate: "Substrate: Circulating Testosterone, Cortisol & Blood Glucose",
+      desc: "Hours earlier, circulating endocrine hormones set cortical responsiveness. Elevated cortisol lowers sensory thresholds for threat perception; elevated testosterone amplifies amygdala reactivity; low blood glucose impairs executive willpower in the anterior cingulate. You didn't choose your hormone levels."
+    },
+    months: {
+      title: "Weeks to Months Prior",
+      substrate: "Substrate: Neuroplasticity & Dendritic Spine Remodeling",
+      desc: "Prolonged stress or trauma physically expands dendrites in the basolateral amygdala while shrinking dendritic arborization in the hippocampus and prefrontal cortex. The structural architecture of your brain was remodeled by past environmental stressors long before this decision."
+    },
+    adolescence: {
+      title: "Adolescence & Early Life",
+      substrate: "Substrate: Frontal Cortex Myelination & Synaptic Pruning",
+      desc: "The frontal cortex is the last brain region to fully develop, completing myelination around age 25. High-risk behaviors, emotional volatility, and identity consolidation in youth permanently mold the neural pathways that dictate adult impulse control."
+    },
+    genes: {
+      title: "Fetal Life & Genetics",
+      substrate: "Substrate: Maternal Epigenetics & DNA Alleles (MAOA, DRD4)",
+      desc: "Before birth, maternal stress hormones crossed the placenta to alter fetal brain wiring. Epigenetic methylation tags activated or silenced genes regulating glucocorticoid receptors. You did not select your genome or your uterine environment."
+    },
+    millennia: {
+      title: "Millennia (Evolutionary Ecology)",
+      substrate: "Substrate: Evolutionary Selection & Cultural Ancestry",
+      desc: "Tens of thousands of years ago, whether your ancestors inhabited nomadic pastoralist steppes (valuing rapid retaliatory honor) or communal agricultural valleys (valuing cooperative harmony) shaped cultural norms that were passed down linguistically and structurally. The causal dominoes stretch back to human genesis."
+    }
+  };
+
+  if (sapolskyBtns) {
+    sapolskyBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        sapolskyBtns.forEach(b => b.classList.remove('active', 'bg-cyan-500/20', 'text-cyan-300', 'border', 'border-cyan-500/40'));
+        btn.classList.add('active', 'bg-cyan-500/20', 'text-cyan-300', 'border', 'border-cyan-500/40');
+        const scale = btn.getAttribute('data-scale') || 'second';
+        const layer = sapolskyLayers[scale];
+        if (layer) {
+          if (sapolskyTitle) sapolskyTitle.textContent = layer.title;
+          if (sapolskySubstrate) sapolskySubstrate.textContent = layer.substrate;
+          if (sapolskyDesc) sapolskyDesc.textContent = layer.desc;
+        }
+        if (window.soundEngine) window.soundEngine.playClick();
+      });
+    });
+  }
+
+  // 7D. Quantum Indeterminism & Randomness Simulator
+  const quantumRollBtn = document.getElementById('quantum-roll-btn');
+  const quantumDisplay = document.getElementById('quantum-dice-display');
+
+  if (quantumRollBtn && quantumDisplay) {
+    quantumRollBtn.addEventListener('click', () => {
+      const outcomes = [
+        { text: "⚛️ ALPHA DECAY (+2e)", color: "#38bdf8" },
+        { text: "⚡ BETA DECAY (-1e)", color: "#a855f7" },
+        { text: "✨ GAMMA EMISSION (0e)", color: "#fbbf24" },
+        { text: "🎲 QUANTUM TUNNELING", color: "#f43f5e" }
+      ];
+      const roll = outcomes[Math.floor(Math.random() * outcomes.length)];
+      quantumDisplay.textContent = roll.text;
+      quantumDisplay.style.color = roll.color;
+      if (window.soundEngine) {
+        window.soundEngine.playNeuralBeep(600 + Math.random() * 400);
+        window.soundEngine.playClick();
+      }
+    });
   }
 
   // 8. Philosophical Compass (5 Dilemmas)

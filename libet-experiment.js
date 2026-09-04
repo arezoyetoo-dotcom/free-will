@@ -34,14 +34,25 @@ class LibetExperiment {
   }
 
   initEEG() {
-    const rect = this.eegCanvas.parentElement.getBoundingClientRect();
-    this.eegWidth = rect.width || 500;
-    this.eegHeight = 160;
-    this.eegCanvas.width = this.eegWidth * window.devicePixelRatio;
-    this.eegCanvas.height = this.eegHeight * window.devicePixelRatio;
-    this.eegCanvas.style.width = this.eegWidth + 'px';
-    this.eegCanvas.style.height = this.eegHeight + 'px';
-    this.eegCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    const setSize = () => {
+      if (!this.eegCanvas || !this.eegCanvas.parentElement) return;
+      const rect = this.eegCanvas.parentElement.getBoundingClientRect();
+      this.eegWidth = Math.max(300, rect.width || 500);
+      this.eegHeight = 160;
+      this.eegCanvas.width = this.eegWidth * window.devicePixelRatio;
+      this.eegCanvas.height = this.eegHeight * window.devicePixelRatio;
+      this.eegCanvas.style.width = this.eegWidth + 'px';
+      this.eegCanvas.style.height = this.eegHeight + 'px';
+      this.eegCtx.setTransform(1, 0, 0, 1, 0, 0);
+      this.eegCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+    setSize();
+
+    if (window.ResizeObserver) {
+      this.resizeObserver = new ResizeObserver(() => setSize());
+      this.resizeObserver.observe(this.eegCanvas.parentElement);
+    }
+    window.addEventListener('resize', setSize);
   }
 
   triggerAction() {
@@ -65,9 +76,19 @@ class LibetExperiment {
     const statRP = document.getElementById('stat-readiness-rp');
     const statGap = document.getElementById('stat-unconscious-gap');
     if (statW && statRP && statGap) {
-      statW.textContent = "0 ms (Subjective Click)";
-      statRP.textContent = "-350 ms (Pre-conscious SMA Activation)";
-      statGap.textContent = "350 ms (Unconscious Lead)";
+      if (this.comparisonMode === 'haynes') {
+        statW.textContent = "0 ms (Subjective Click)";
+        statRP.textContent = "-8,000 ms (Frontopolar fMRI Decoding)";
+        statGap.textContent = "8,000 ms (Predictive Window)";
+      } else if (this.comparisonMode === 'schurger') {
+        statW.textContent = "0 ms (Threshold Crossed)";
+        statRP.textContent = "-1,500 ms (Stochastic Noise Drift)";
+        statGap.textContent = "Noise Threshold Event";
+      } else {
+        statW.textContent = "0 ms (Subjective Click)";
+        statRP.textContent = "-350 ms (Pre-conscious SMA Activation)";
+        statGap.textContent = "350 ms (Unconscious Lead)";
+      }
     }
   }
 
@@ -85,6 +106,7 @@ class LibetExperiment {
 
   setComparison(mode) {
     this.comparisonMode = mode;
+    this.reset();
     this.renderEEG();
   }
 
@@ -205,34 +227,45 @@ class LibetExperiment {
     ctx.stroke();
 
     // Markers on Timeline
-    // 0ms is at x = w * 0.85 (Action)
-    // -200ms is at x = w * 0.65 (Will / Awareness)
-    // -550ms is at x = w * 0.35 (RP Onset)
     const xAction = w * 0.85;
     const xWill = w * 0.65;
-    const xRP = w * 0.35;
+    let xRP = w * 0.35;
+    let gapLabel = "UNCONSCIOUS PREPARATION (300-350ms GAP)";
+
+    if (this.comparisonMode === 'haynes') {
+      xRP = w * 0.15;
+      gapLabel = "fMRI PREDICTIVE HORIZON (7,000 - 10,000ms WINDOW)";
+    } else if (this.comparisonMode === 'schurger') {
+      xRP = w * 0.40;
+      gapLabel = "STOCHASTIC DRIFT ACCUMULATION (RANDOM NOISE)";
+    }
 
     // Draw Shaded "Unconscious Time Gap" Zone
     const gapGrad = ctx.createLinearGradient(xRP, 0, xWill, 0);
-    gapGrad.addColorStop(0, 'rgba(244, 63, 94, 0.15)');
-    gapGrad.addColorStop(1, 'rgba(251, 191, 36, 0.2)');
+    if (this.comparisonMode === 'haynes') {
+      gapGrad.addColorStop(0, 'rgba(56, 189, 248, 0.2)');
+      gapGrad.addColorStop(1, 'rgba(168, 85, 247, 0.25)');
+    } else {
+      gapGrad.addColorStop(0, 'rgba(244, 63, 94, 0.15)');
+      gapGrad.addColorStop(1, 'rgba(251, 191, 36, 0.2)');
+    }
     ctx.fillStyle = gapGrad;
     ctx.fillRect(xRP, 15, xWill - xRP, h - 30);
 
     // Border of Unconscious Zone
-    ctx.strokeStyle = 'rgba(244, 63, 94, 0.5)';
+    ctx.strokeStyle = this.comparisonMode === 'haynes' ? 'rgba(56, 189, 248, 0.5)' : 'rgba(244, 63, 94, 0.5)';
     ctx.setLineDash([3, 3]);
     ctx.strokeRect(xRP, 15, xWill - xRP, h - 30);
     ctx.setLineDash([]);
 
     // Label Unconscious Gap
-    ctx.fillStyle = '#fb7185';
+    ctx.fillStyle = this.comparisonMode === 'haynes' ? '#38bdf8' : '#fb7185';
     ctx.font = '10px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
-    ctx.fillText("UNCONSCIOUS PREPARATION (300-350ms GAP)", (xRP + xWill) / 2, 28);
+    ctx.fillText(gapLabel, (xRP + xWill) / 2, 28);
 
     // Vertical marker lines
-    ctx.strokeStyle = '#f43f5e';
+    ctx.strokeStyle = this.comparisonMode === 'haynes' ? '#38bdf8' : '#f43f5e';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(xRP, 15);
@@ -253,40 +286,67 @@ class LibetExperiment {
 
     // Labels for vertical lines
     ctx.font = '9px "JetBrains Mono", monospace';
-    ctx.fillStyle = '#f43f5e';
-    ctx.fillText("RP Onset (-550ms)", xRP, h - 5);
+    ctx.fillStyle = this.comparisonMode === 'haynes' ? '#38bdf8' : '#f43f5e';
+    const rpLabel = this.comparisonMode === 'haynes' ? "BA10 fMRI (-8000ms)" : (this.comparisonMode === 'schurger' ? "Noise Drift (-1500ms)" : "RP Onset (-550ms)");
+    ctx.fillText(rpLabel, xRP, h - 5);
     ctx.fillStyle = '#fbbf24';
     ctx.fillText("Conscious Will (-200ms)", xWill, h - 5);
     ctx.fillStyle = '#34d399';
     ctx.fillText("Action (0ms)", xAction, h - 5);
 
+    // If Schurger mode, draw horizontal Threshold Line
+    if (this.comparisonMode === 'schurger') {
+      const threshY = baselineY + 48;
+      ctx.strokeStyle = '#f43f5e';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(0, threshY);
+      ctx.lineTo(w, threshY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillText("CRITICAL MOTOR THRESHOLD", w * 0.25, threshY - 6);
+    }
+
     // Draw Simulated Readiness Potential (RP) Waveform
     ctx.save();
-    ctx.strokeStyle = '#38bdf8';
+    ctx.strokeStyle = this.comparisonMode === 'haynes' ? '#a855f7' : '#38bdf8';
     ctx.lineWidth = 2.5;
     ctx.shadowBlur = 8;
-    ctx.shadowColor = 'rgba(56, 189, 248, 0.8)';
+    ctx.shadowColor = this.comparisonMode === 'haynes' ? 'rgba(168, 85, 247, 0.8)' : 'rgba(56, 189, 248, 0.8)';
     ctx.beginPath();
 
     const maxPoints = Math.floor(w * (this.hasTriggered ? Math.min(1, this.eegProgress) : 1));
     for (let x = 0; x < maxPoints; x++) {
       let y = baselineY;
-      // Pre-RP baseline noise
-      if (x < xRP) {
-        y += (Math.sin(x * 0.2) + Math.cos(x * 0.4)) * 2.5;
-      } 
-      // Negative potential slope (Readiness Potential buildup)
-      else if (x >= xRP && x < xAction) {
-        const progress = (x - xRP) / (xAction - xRP);
-        // Bereitschaftspotential is a negative electrical shift (curves upwards or downwards depending on polarity)
-        const dip = Math.pow(progress, 1.8) * 55;
-        y += dip + (Math.sin(x * 0.3) * 2);
-      } 
-      // Post-action discharge / return to baseline
-      else {
-        const afterProg = (x - xAction) / (w - xAction);
-        const discharge = 55 * Math.exp(-afterProg * 4);
-        y += discharge + (Math.sin(x * 0.25) * 2);
+      
+      if (this.comparisonMode === 'schurger') {
+        // Stochastic random walk
+        const noise = Math.sin(x * 0.15) * 12 + Math.cos(x * 0.38) * 8 + Math.sin(x * 0.04) * 18;
+        if (x < xAction) {
+          const ramp = (x / xAction) * 35;
+          y += noise + ramp;
+        } else {
+          y += 50 * Math.exp(-(x - xAction) / 25) + noise * 0.5;
+        }
+      } else {
+        // Pre-RP baseline noise
+        if (x < xRP) {
+          y += (Math.sin(x * 0.2) + Math.cos(x * 0.4)) * 2.5;
+        } 
+        // Negative potential slope (Readiness Potential buildup)
+        else if (x >= xRP && x < xAction) {
+          const progress = (x - xRP) / (xAction - xRP);
+          const dip = Math.pow(progress, this.comparisonMode === 'haynes' ? 1.4 : 1.8) * 55;
+          y += dip + (Math.sin(x * 0.3) * 2);
+        } 
+        // Post-action discharge / return to baseline
+        else {
+          const afterProg = (x - xAction) / (w - xAction);
+          const discharge = 55 * Math.exp(-afterProg * 4);
+          y += discharge + (Math.sin(x * 0.25) * 2);
+        }
       }
 
       if (x === 0) ctx.moveTo(x, y);

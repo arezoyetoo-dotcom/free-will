@@ -1,187 +1,160 @@
 # 🧠 Free Will: Real or Fake?
-## Formal Lecture Documentation & Conceptual Architecture
+## Formal Master Lecture Documentation & Academic Curriculum Guide
 
-> **Document Class:** Academic Lecture Monograph & Curriculum Guide  
-> **Topic:** Metaphysics, Cognitive Neuroscience, and Moral Philosophy  
+> **Document Class:** Academic Master Lecture Monograph & Presenter Curriculum  
+> **Topic:** Metaphysics, Cognitive Neuroscience, Behavioral Biology, and Moral Jurisprudence  
 > **Core Inquiry:** Do human beings exercise genuine autonomous agency in their choices, or is conscious volition an illusory byproduct of deterministic physical, biological, and historical chains of causality?
 
 ---
 
 ## 📑 Table of Contents
 1. [Lecture Overview & Executive Summary](#1-lecture-overview--executive-summary)
-2. [Module 1: Defining Free Will & The Phenomenon of Choice](#2-module-1-defining-free-will--the-phenomenon-of-choice)
-3. [Module 2: The Architecture of Determinism](#3-module-2-the-architecture-of-determinism)
-4. [Module 3: Cognitive Neuroscience & The 300ms Time Gap](#4-module-3-cognitive-neuroscience--the-300ms-time-gap)
-5. [Module 4: The Trilemma — Three Major Philosophical Stances](#5-module-4-the-trilemma--three-major-philosophical-stances)
-6. [Module 5: Societal, Legal, and Ethical Repercussions](#6-module-5-societal-legal-and-ethical-repercussions)
-7. [Module 6: The Existential Dimension — Sartre and the Burden of Choice](#7-module-6-the-existential-dimension--sartre-and-the-burden-of-choice)
-8. [Pedagogical Prompts & Discussion Questions](#8-pedagogical-prompts--discussion-questions)
-9. [Key Terms & Conceptual Glossary](#9-key-terms--conceptual-glossary)
+2. [Module 1: Defining Free Will & The Crossroads Sensation](#2-module-1-defining-free-will--the-crossroads-sensation)
+3. [Module 2: Universal Determinism & The Domino Cascade](#3-module-2-universal-determinism--the-domino-cascade)
+4. [Module 3: Classical Neuroscience — Benjamin Libet's 300ms Gap (1983)](#4-module-3-classical-neuroscience--benjamin-libets-300ms-gap-1983)
+5. [Module 4: 21st-Century Neuroscience — Haynes (2008) & Fried (2011)](#5-module-4-21st-century-neuroscience--haynes-2008--fried-2011)
+6. [Module 5: The Scientific Rebellion — Aaron Schurger's Stochastic Model (2012)](#6-module-5-the-scientific-rebellion--aaron-schurgers-stochastic-model-2012)
+7. [Module 6: Quantum Physics — The Fallacy of Randomness](#7-module-6-quantum-physics--the-fallacy-of-randomness)
+8. [Module 7: The Philosophical Trilemma (Hard Determinism, Free Won't, Compatibilism)](#8-module-7-the-philosophical-trilemma)
+9. [Module 8: Harry Frankfurt (1969) — Freedom Without Alternate Possibilities](#9-module-8-harry-frankfurt-1969--freedom-without-alternate-possibilities)
+10. [Module 9: Biocultural Determinism — Robert Sapolsky (2023)](#10-module-9-biocultural-determinism--robert-sapolsky-2023)
+11. [Module 10: Rules, Justice, & Derk Pereboom's Quarantine Model](#11-module-10-rules-justice--derk-perebooms-quarantine-model)
+12. [Module 11: Existentialism — Jean-Paul Sartre and "Condemned to Be Free"](#12-module-11-existentialism--jean-paul-sartre-and-condemned-to-be-free)
+13. [Module 12: Psychological Stakes — Illusionism (Smilansky) vs. Radical Empathy](#13-module-12-psychological-stakes--illusionism-smilansky-vs-radical-empathy)
+14. [Module 13: Grand Synthesis & The Open Verdict](#14-module-13-grand-synthesis--the-open-verdict)
+15. [Presenter Master Guide: 14-Slide Verbatim Lecture Script](#15-presenter-master-guide-14-slide-verbatim-lecture-script)
 
 ---
 
 ## 1. Lecture Overview & Executive Summary
 
-The debate over free will stands at the intersection of classical metaphysics, modern cognitive neurobiology, and legal jurisprudence. At stake is nothing less than the legitimacy of moral responsibility, retributive justice, personal accountability, and the subjective understanding of human consciousness.
-
-### The Central Thesis
-While human beings possess an intuitive, phenomenological certainty of autonomy—experiencing themselves as the deliberate authors of their actions—contemporary physical determinism and empirical neuroscience suggest that unconscious neural precursors initiate behavior well before conscious awareness dawns. This lecture presents the evidence, examines the counterarguments, and evaluates whether human agency is **real, fake, or redefined**.
+The free will debate stands at the ultimate crossroads of human thought. It governs whether praise, blame, pride, guilt, love, and retributive justice are rational, or whether humans are simply organic automata rationalizing actions after the fact.
 
 ```mermaid
 flowchart TD
-    A["The Intuition of Agency<br>(Standing at the Crossroads)"] --> B{"The Core Metaphysical Conflict"}
-    B -->|"Physical Reality"| C["Causal Determinism<br>(Falling Dominoes)"]
-    B -->|"Empirical Biology"| D["Neuroscience<br>(300ms Readiness Potential)"]
-    C & D --> E["The Philosophical Stances"]
-    E --> F["Hard Determinism<br>(No Free Will)"]
-    E --> G["'Free Won't'<br>(Conscious Veto)"]
-    E --> H["Compatibilism<br>(Voluntary Desires)"]
-    F & G & H --> I["Societal & Legal Repercussions<br>(Justice, Punishment, Sartre's Condemned Freedom)"]
+    A["The Intuition of Agency<br>(Standing at the Crossroads)"] --> B{"The Metaphysical Crisis"}
+    B -->|"Classical Physics"| C["Universal Determinism<br>(Falling Dominoes / Laplace's Demon)"]
+    B -->|"Empirical Neuroscience"| D["Neural Decoding<br>(Libet 300ms / Haynes 10s fMRI)"]
+    B -->|"Subatomic Physics"| E["Quantum Indeterminism<br>(The Fallacy of Randomness)"]
+    C & D & E --> F["The Philosophical Trilemma"]
+    F --> G["Hard Determinism<br>(Spinoza, Harris, Sapolsky)"]
+    F --> H["'Free Won't' Veto<br>(Libet, Ramachandran)"]
+    F --> I["Compatibilism<br>(Hume, Dennett, Frankfurt)"]
+    G & H & I --> J["Real-World Repercussions<br>(Pereboom Quarantine Model, Sartre's Condemned Freedom)"]
 ```
 
 ---
 
-## 2. Module 1: Defining Free Will & The Phenomenon of Choice
-
-### 2.1 The Crossroads Thought Experiment
-Consider an individual standing at a physical fork in the road:
-* To the left lies path $A$; to the right lies path $B$.
-* The traveler pauses, contemplates both alternatives, and chooses path $A$.
-* In retrospect, the traveler feels an unshakable conviction: *"I could have chosen $B$ under the exact same circumstances."*
-
-This subjective conviction is the **phenomenology of agency**. It is defined as:
-> **Free Will:** The capacity of an agent to formulate desires, deliberate among alternate possibilities, and select an action without being coerced or predetermined by prior external causes or unconscious biological mechanisms.
-
-### 2.2 The Fundamental Inquiry
-Is this internal feeling of deliberate control an **accurate reflection of metaphysical autonomy**, or is it an **evolutionary post-hoc narrative** generated by the conscious mind to explain actions already initiated by unconscious physiological processes?
+## 2. Module 1: Defining Free Will & The Crossroads Sensation
+- **The Crossroads Phenomenon:** When standing at a physical fork in the road, human consciousness experiences an intuitive certainty: *"Under the exact same physical conditions, I could have chosen otherwise."*
+- **Principle of Alternate Possibilities (PAP):** The traditional libertarian assertion that moral responsibility requires the genuine metaphysical ability to have chosen an alternate action.
 
 ---
 
-## 3. Module 2: The Architecture of Determinism
-
-### 3.1 The Principle of Universal Causality
-Determinism posits that the universe is governed by unbroken laws of cause and effect. Every current state of affairs is the necessary consequence of preceding states and fundamental physical constants.
-
-$$	ext{State}_{t} = f(	ext{State}_{t-1}, 	ext{Physical Laws})$$
-
-### 3.2 The Domino Analogy
-Imagine a sequential line of standing dominoes:
-1. When the first domino is tipped, an unbroken cascade of kinetic transfer propagates down the line.
-2. The final domino collapses inevitably.
-3. The final domino **does not choose** to fall; it is compelled by the impact of the domino immediately behind it, which was compelled by the one before it.
-
-```
-[Initial Cause] ──▶ [Domino 1] ──▶ [Domino 2] ──▶ ... ──▶ [Final Action]
-                          (No internal choice at any step)
-```
-
-### 3.3 Application to Human Beings
-Humans are macroscopic physical systems composed of cells, proteins, neurons, and biochemical electrical gradients. If every physical particle in the universe obeys deterministic physics:
-* Are human decisions anything more than the latest falling domino in a causal chain stretching back to the Big Bang?
-* If our neurochemistry is entirely dictated by genetics, epigenetic programming, environmental inputs, and past memories, can any choice truly be called "independent"?
+## 3. Module 2: Universal Determinism & The Domino Cascade
+- **Principle of Universal Causality:** Every state of the physical cosmos is mathematically dictated: $\text{State}_t = f(\text{State}_{t-1}, \text{Physical Laws})$.
+- **The Domino Analogy:** In an unbroken chain of falling dominoes, Domino #14 does not "choose" to fall; it is physically compelled by kinetic transfer from Domino #13. Because human brains are composed of physical atoms and neurons, determinism asks: aren't your choices simply Domino #14 in an unbroken sequence stretching back to the Big Bang?
+- **Laplace's Demon (1814):** An intellect with complete knowledge of all particles at one moment could calculate the entire past and future with 100% precision. Uncertainty is merely human ignorance.
 
 ---
 
-## 4. Module 3: Cognitive Neuroscience & The 300ms Time Gap
-
-### 4.1 The Benjamin Libet Experiments (1983)
-Pioneered by neurophysiologist Benjamin Libet at UC San Francisco, these groundbreaking electroencephalogram (EEG) experiments tested the precise temporal sequence of voluntary movement:
-
-1. **Experimental Setup:** Subjects looked at a specialized oscilloscope clock with a dot rotating every 2.56 seconds. They were instructed to flick their wrist whenever they felt the spontaneous "urge" or intention to do so.
-2. **Key Timestamps Tracked:**
-   - **$RP$ (Readiness Potential / *Bereitschaftspotential*):** The onset of electrical activity in the supplementary motor area (SMA) of the brain.
-   - **$W$ (Will):** The exact millisecond reported by the subject when they consciously became aware of their decision to act.
-   - **$M$ (Movement):** The actual muscular contraction recorded via electromyography (EMG).
-
-### 4.2 The 300-Millisecond Time Gap
-The experimental results revealed a startling discrepancy:
-* The brain's motor preparation ($RP$) preceded conscious awareness of the urge ($W$) by **approximately 300 to 500 milliseconds**.
-* Modern functional magnetic resonance imaging (fMRI) studies by John-Dylan Haynes (2008) at the Max Planck Institute have extended this predictive window even further: decoding decisions in the prefrontal and parietal cortex up to **7 to 10 seconds** before conscious report!
-
-```
-Temporal Sequence of Volition:
-  -500ms ─────────────────────── -200ms ──────────────────────── 0ms
-     │                              │                              │
-  [Brain initiates              [Conscious                      [Physical
-   Readiness Potential (RP)]     awareness of decision (W)]      movement occurs (M)]
-     └────────── 300ms ─────────────┘
-          "The Unconscious Gap"
-```
-
-### 4.3 The Critical Implication
-If the physiological machinery of the brain begins executing an action hundreds of milliseconds before the conscious ego is even notified, does consciousness merely serve as a **press secretary** rationalizing decisions already made in the dark?
+## 4. Module 3: Classical Neuroscience — Benjamin Libet's 300ms Gap (1983)
+- **The Experiment:** Subjects watched an oscilloscope clock with a spot rotating every 2.56 seconds. They were instructed to flick their wrist whenever spontaneous intention arose.
+- **The Readiness Potential (Bereitschaftspotential):** Electrical activity in the Supplementary Motor Area (SMA) began **300 to 500 milliseconds before** the subject reported conscious awareness of their intention.
+- **The Press Secretary Hypothesis:** Consciousness is not the commanding general of action; it is merely the press secretary justifying decisions already initiated by unconscious neural circuitry.
 
 ---
 
-## 5. Module 4: The Trilemma — Three Major Philosophical Stances
-
-To resolve the tension between subjective experience, deterministic physics, and neurobiology, philosophers have organized into three principal schools of thought:
-
-| Stance | Core Proposition | Stance on Free Will | Treatment of Moral Blame |
-| :--- | :--- | :---: | :--- |
-| **Hard Determinism** | The universe is strictly causal. Past events, biology, and environment leave no room for alternate possibilities. | **Non-existent (Illusion)** | Incoherent; blame is irrational, though quarantine/treatment remains practical. |
-| **"Free Won't"** | Unconscious impulses cannot be stopped from arising, but the conscious mind possesses a veto window before execution. | **Restricted / Negative Agency** | Maintained; moral culpability rests on the failure to exercise conscious veto. |
-| **Compatibilism** | Free will does not require metaphysical indeterminism; it requires freedom from external coercion. | **Compatible with Determinism** | Fully intact; you are responsible if you acted according to your internal desires. |
-
-### 5.1 Hard Determinism (Incompatibilism)
-* **Advocates:** Baruch Spinoza, Arthur Schopenhauer, Sam Harris.
-* **Core Argument:** Just as water has no choice but to freeze at 0°C, human neurobiology cannot produce any choice other than what physics and prior conditions dictate. Spinoza famously stated: *"Men believe themselves free because they are conscious of their volitions and desires, but ignorant of the causes by which they are led to desire."*
-
-### 5.2 "Free Won't" (The Conscious Veto)
-* **Advocates:** Benjamin Libet, Vilayanur Ramachandran.
-* **Core Argument:** Even if the initial impulse to act arises unconsciously at $-500	ext{ ms}$, there remains a **150 to 200-millisecond window** between conscious awareness ($W$) and muscular execution ($M$). During this window, consciousness can step in and **abort** the action. Free will is not the power of initiation, but the power of inhibition.
-
-### 5.3 Compatibilism (Soft Determinism)
-* **Advocates:** David Hume, John Locke, Daniel Dennett.
-* **Core Argument:** The definition of free will used by hard determinists (requiring magic or exemption from physics) is mistaken. A person acts freely as long as their action originates from their own internal beliefs, desires, and character, without external physical restraint, gun to the head, or severe psychiatric paralysis.
+## 5. Module 4: 21st-Century Neuroscience — Haynes (2008) & Fried (2011)
+- **John-Dylan Haynes (2008 / 2011 fMRI Decoding):** Max Planck researchers decoded whether subjects would press a left or right button up to **7 to 10 seconds** before conscious awareness by reading fMRI signals in the frontopolar cortex (BA10) and precuneus.
+- **Itzhak Fried (2011 Single-Neuron Intracranial Recording):** Direct recording from 256 neurons in human neurosurgical patients predicted motor decisions **700ms** before awareness with >80% accuracy.
 
 ---
 
-## 6. Module 5: Societal, Legal, and Ethical Repercussions
-
-The theoretical debate has immediate, practical consequences for human civilization:
-
-### 6.1 The Foundations of Criminal Justice
-Our legal systems are historically built upon **retributive justice**: the doctrine that an offender deserves punishment because they freely chose to commit a wrongful act.
-* **The Deterministic Challenge:** If a violent criminal's behavior was the mathematical outcome of traumatic childhood abuse, genetic vulnerability, and neurochemical imbalances (the domino effect), is retributive punishment morally justifiable?
-* **The Utilitarian Shift:** If hard determinism is true, the legal system must abandon retribution in favor of:
-  1. **Quarantine:** Detaining dangerous individuals for public safety (comparable to quarantining a virus carrier without moral hatred).
-  2. **Deterrence:** Maintaining predictable consequences to alter future behavioral dominoes.
-  3. **Rehabilitation:** Treating underlying neurological and social pathologies.
+## 6. Module 5: The Scientific Rebellion — Aaron Schurger's Stochastic Model (2012)
+- **The Stochastic Accumulator:** What if the Readiness Potential is not an unconscious decision at all?
+- The brain generates ongoing spontaneous neural noise (slow cortical fluctuations). In waiting tasks with no external cue, movement triggers whenever ongoing neural noise randomly crests above a threshold.
+- Averaging EEG backwards from movement artificially creates the visual illusion of a purposeful buildup. The feeling of intention is constructed at the exact threshold crossing!
 
 ---
 
-## 7. Module 6: The Existential Dimension — Sartre and the Burden of Choice
-
-### 7.1 "Man is Condemned to Be Free"
-French existentialist Jean-Paul Sartre offered a counterweight to mechanistic fatalism in *Being and Nothingness* (1943):
-> *"Man is condemned to be free; because once thrown into the world, he is responsible for everything he does."*
-
-### 7.2 Radical Responsibility and "Bad Faith" (*Mauvaise Foi*)
-* Even if one's circumstances (facticity) are unchosen—birthplace, physical body, past trauma—the individual is perpetually forced to **assign meaning** and **choose their next response**.
-* Refusing to choose is, in itself, a choice.
-* Blaming our choices entirely on our past, our biology, or societal pressure is what Sartre called **Bad Faith**: an inauthentic attempt to escape the crushing anxiety (*angst*) of absolute personal responsibility.
+## 7. Module 6: Quantum Physics — The Fallacy of Randomness
+- **The Heisenberg Appeal:** Some argue that quantum indeterminacy and wave-function collapse break determinism, thereby "saving" free will.
+- **The Logical Fallacy:** **Randomness is NOT Free Will.**
+- If an action is caused by an unpredictable subatomic radioactive decay in a synapse, you did not author that decay. Being ruled by subatomic dice is no freer than being ruled by deterministic dominoes.
 
 ---
 
-## 8. Pedagogical Prompts & Discussion Questions
-
-For seminars, classrooms, and self-directed inquiries:
-
-1. **The Libet Dilemma:** If a brain scanner could predict with 100% accuracy which button you will press 10 seconds before you feel you decided, would that definitively disprove your free will? Why or why not?
-2. **The Justice Paradox:** If a judge completely accepts hard determinism, how should they sentence an individual convicted of a premeditated crime?
-3. **The Pragmatic Question:** Is belief in free will a necessary social fiction? Research indicates that individuals prompted with deterministic arguments exhibit higher rates of cheating and lower altruism. Does society require the illusion of agency to function?
-4. **The Veto Test:** Think back to a moment you stopped yourself from saying something cruel. Did that veto originate from a conscious "Free Won't", or was the veto itself just another domino triggered by past conditioning?
+## 8. Module 7: The Philosophical Trilemma
+1. **Hard Determinism (Incompatibilism):** Free will is zero. Physics, biology, and past history completely mandate every action.
+2. **"Free Won't" (Inhibitory Agency):** While the unconscious mind generates impulses, consciousness possesses a 150ms veto window to inhibit and abort action before motor execution.
+3. **Compatibilism (Soft Determinism):** Free will does not mean escaping physics; it means acting according to your own internal desires and character without external physical coercion.
 
 ---
 
-## 9. Key Terms & Conceptual Glossary
+## 9. Module 8: Harry Frankfurt (1969) — Freedom Without Alternate Possibilities
+- **The Case of Black & Jones:** Neurosurgeon Black implants a dormant chip in voter Jones. If Jones votes Candidate A on his own, the chip does nothing. If Jones hesitates toward Candidate B, the chip forces him to vote Candidate A.
+- **The Counterexample:** Jones votes Candidate A voluntarily. Black never intervenes. Could Jones have done otherwise? **NO.** Was Jones morally responsible? **YES.**
+- **The Takeaway:** Moral responsibility does NOT require alternate possibilities. Freedom is being the authentic author of your desires.
 
-* **Agency:** The capacity of an actor to act purposefully in any given environment.
-* **Bereitschaftspotential (Readiness Potential):** A measure of activity in the motor cortex and supplementary motor area of the brain leading up to voluntary muscle movement.
-* **Compatibilism:** The belief that free will and deterministic causality are mutually compatible concepts.
-* **Determinism:** The philosophical proposition that every event, including human cognition and action, is causally determined by an unbroken chain of prior occurrences.
-* **Epiphenomenalism:** The view that mental events are caused by physical events in the brain, but have no causal efficacy upon physical events themselves.
-* **Facticity:** Sartre's term for the concrete given realities of a person's situation (e.g., historical epoch, birth attributes) which they did not choose.
-* **Hard Determinism:** The position that universal determinism is true and precludes the possibility of free will.
-* **Libet Clock:** The rotating visual apparatus utilized in Benjamin Libet's 1983 experiments to synchronize subjective conscious intention with neuroelectric telemetry.
+---
+
+## 10. Module 9: Biocultural Determinism — Robert Sapolsky (2023)
+In *Determined*, Robert Sapolsky demonstrates that any human behavior is the convergence of an unbroken hierarchy:
+- 1 Second Before: Action potentials in the amygdala vs prefrontal cortex.
+- Minutes Before: Sensory priming, ambient odors, and room temperature.
+- Hours to Days Before: Circulating testosterone, cortisol, and blood glucose.
+- Weeks to Months: Neuroplastic dendritic arborization.
+- Adolescence: Delayed prefrontal myelination.
+- Fetal & Genetics: Epigenetic methylation tags and ancestral alleles.
+- Millennia Before: Evolutionary ecology of ancestral populations.
+*There is no uncaused seam where a soul enters the physical machinery.*
+
+---
+
+## 11. Module 10: Rules, Justice, & Derk Pereboom's Quarantine Model
+- **The Death of Retribution:** Inflicting suffering on an offender because they "deserve" pain is morally indefensible if their behavior was compelled by trauma, genetics, and environment.
+- **Derk Pereboom's Public Health Quarantine Analogy:**
+  - When an individual carries a deadly pathogen (e.g. Ebola), society quarantines them to protect public safety.
+  - We do not hate them, seek vengeance, or torture them. We isolate them humanely, provide medical care, and cure them if possible.
+  - Criminal jurisprudence must abandon medieval retribution in favor of quarantine containment, general deterrence, and neurological rehabilitation.
+
+---
+
+## 12. Module 11: Existentialism — Jean-Paul Sartre and "Condemned to Be Free"
+- **"Man is condemned to be free; because once thrown into the world, he is responsible for everything he does."** (*Being and Nothingness*, 1943)
+- **Facticity vs. Meaning:** While our starting facts (genes, birth era, past trauma) are unchosen, we are perpetually forced to assign meaning and choose our next response.
+- **Bad Faith (Mauvaise Foi):** Hiding behind determinism, genetics, or circumstance to dodge the terrifying anxiety (*angst*) of absolute personal responsibility.
+
+---
+
+## 13. Module 12: Psychological Stakes — Illusionism (Smilansky) vs. Radical Empathy
+- **The Dark Side (Vohs & Schooler 2008):** Priming subjects with deterministic text increased cheating, reduced altruism, and fostered moral passivity.
+- **Saul Smilansky's 'Free Will Illusionism':** Argues that free will is a necessary social fiction that humanity must maintain to preserve social order.
+- **The Bright Side (The Gift of Determinism):** Shedding the illusion of free will destroys toxic pride, dissolves vindictive hatred, and fosters radical compassion for all human suffering.
+
+---
+
+## 14. Module 13: Grand Synthesis & The Open Verdict
+Agency redefined: We are not supernatural ghosts operating outside physical laws. We are self-reflective deterministic agents equipped with biological feedback loops, capable of modeling future consequences, exercising conscious vetoes, and steering our trajectories.
+
+---
+
+## 15. Presenter Master Guide: 14-Slide Verbatim Lecture Script
+
+| Slide | Title | Core Pedagogical Thesis | Suggested Presenter Delivery (Verbatim Excerpt) |
+| :---: | :--- | :--- | :--- |
+| **01** | Title / Introduction | The Metaphysical Crossroads | *"Welcome everyone. Today we examine whether humans make their own choices, or if conscious volition is a sophisticated neurological illusion..."* |
+| **02** | The Intuition | The Crossroads Phenomenon | *"Start with our everyday intuition. You feel with absolute conviction: 'I could have chosen otherwise.' But is this intuition scientifically true?"* |
+| **03** | Physical Causality | Universal Determinism | *"In classical physics, the universe is an unbroken causal chain. If every atom obeys physics, are your choices simply domino #14 falling since the Big Bang?"* |
+| **04** | Classical Neuroscience | Libet's 300ms Gap | *"Libet found that the brain's motor cortex initiates electrical preparation 300ms before you consciously feel you decided. Is consciousness merely a press secretary?"* |
+| **05** | Modern Neuroscience | Haynes 10s fMRI Decoding | *"Haynes used fMRI machine learning to predict button choices up to 10 seconds before conscious awareness. The predictive window is expanding from milliseconds to seconds."* |
+| **06** | Scientific Counter-Rebellion | Schurger's Stochastic Model | *"Plot twist: What if the Readiness Potential isn't a decision at all, but random neural noise cresting above a threshold? Intention is born at the threshold crossing."* |
+| **07** | Physics Inquiry | Quantum Randomness Fallacy | *"Heisenberg's uncertainty does not save free will. Randomness is the enemy of intention. Being ruled by subatomic dice is no freer than being ruled by dominoes."* |
+| **08** | Philosophical Trilemma | 3 Stances | *"Hard Determinism says free will is zero. Free Won't says we have 150ms veto power. Compatibilism says being free just means acting on your desires without chains."* |
+| **09** | Frankfurt Cases | Freedom Without Alternatives | *"Harry Frankfurt proved that moral responsibility does not require alternate possibilities through the famous case of voter Jones and neurosurgeon Black."* |
+| **10** | Biocultural Determinism | Robert Sapolsky (2023) | *"Every choice is the convergence of a hierarchy: from action potentials 1 second prior to evolutionary ecology millennia ago. Find one neuron free from this chain."* |
+| **11** | Rules, Law, & Justice | The Quarantine Model | *"Retributive punishment is irrational cruelty under determinism. Derk Pereboom's Quarantine Model treats crime as a public health containment and rehabilitation issue."* |
+| **12** | Existentialism | Sartre: "Condemned to Be Free" | *"Jean-Paul Sartre declared: 'Man is condemned to be free.' Hiding behind determinism or trauma to dodge accountability is what Sartre called Bad Faith."* |
+| **13** | Psychological Stakes | Illusionism vs. Liberation | *"Vohs and Schooler showed that losing free will increases cheating. Yet accepting determinism destroys arrogance and fosters boundless compassion for human suffering."* |
+| **14** | Grand Synthesis | The Open Verdict | *"We are not supernatural ghosts; we are self-reflective deterministic agents. The choice of how you interpret your agency is now yours. Thank you."* |

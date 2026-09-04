@@ -158,3 +158,34 @@ Agency redefined: We are not supernatural ghosts operating outside physical laws
 | **12** | Existentialism | Sartre: "Condemned to Be Free" | *"Jean-Paul Sartre declared: 'Man is condemned to be free.' Hiding behind determinism or trauma to dodge accountability is what Sartre called Bad Faith."* |
 | **13** | Psychological Stakes | Illusionism vs. Liberation | *"Vohs and Schooler showed that losing free will increases cheating. Yet accepting determinism destroys arrogance and fosters boundless compassion for human suffering."* |
 | **14** | Grand Synthesis | The Open Verdict | *"We are not supernatural ghosts; we are self-reflective deterministic agents. The choice of how you interpret your agency is now yours. Thank you."* |
+
+---
+
+## 16. Visual & Data Visualization Architecture
+
+The interactive experience implements modern, optimistic, and data-driven visualization engines designed to communicate academic rigor through uplifting, engaging aesthetics:
+
+### A. WebGL ShaderGradient Background Engine
+- **Inspiration:** `ruucm/shadergradient` and `@react-three/fiber` GLSL shaders.
+- **Engine:** Pure zero-dependency WebGL 2.0 / 1.0 fullscreen quad with fractional Brownian motion (`fbm`) and 2D simplex noise.
+- **Interactive Optics:** Tracks mouse coordinates with smooth exponential lerp to generate fluid organic ripples and liquid caustics.
+- **Color Presets:**
+  1. *Joyful Sunrise:* Warm sunny amber (#f59e0b), radiant coral (#ff6b6b), electric sky cyan (#06b6d4), orchid violet (#8b5cf6), fresh mint (#10b981).
+  2. *Luminous Prism:* Iridescent liquid crystal rose (#f472b6), electric azure (#38bdf8), lemon gold (#facc15), spring mint (#4ade80).
+  3. *Golden Radiance:* Champagne gold (#fde047), sunny peach (#fda4af), sapphire blue (#3b82f6), teal mint (#14b8a6).
+  4. *Electric Aurora:* High-contrast saturated neon cyan, ultraviolet, and spring green.
+- **Radiant Mode vs. Luminous Mode:** Fully integrated two-mode lighting engine allowing instant toggling between bright sunlit daylight glass and deep glowing twilight aurora.
+
+### B. Liquid Glass Physics (Vanilla JS Refraction)
+- **Inspiration:** `dashersw/liquid-glass-js` and `@paper-design/liquid-logo`.
+- **Specular Tracking:** Calculates the vector angle between cursor and glass surfaces to cast dynamic directional light gleams across frosted glass borders.
+- **Haptic Tactility:** Elastic spring compression physics upon clicking interactive elements.
+
+### C. Chart.js Presentation Slide Visualizations
+Incorporating the *Layout Patterns* and *Slide Strategies* from the `slides` skill, the 14-slide master deck features 6 interactive Chart.js visualizations:
+1. **Slide 02 (PhilPapers Global Survey):** Interactive Doughnut chart showing that 59.2% of world academic philosophers endorse Compatibilism, proving that agency and physical causality coexist harmoniously.
+2. **Slide 04 (Libet 1983 Bereitschaftspotential):** Microsecond-accurate line chart mapping the Readiness Potential curve (-550ms) to conscious awareness (-200ms) to motor firing (0ms).
+3. **Slide 05 (Haynes 2008 fMRI Decoding):** Temporal accuracy trajectory illustrating BA10 frontopolar predictive power climbing from -10 seconds before choice awareness.
+4. **Slide 06 (Schurger 2012 Stochastic Model):** Brownian neural fluctuation drift modeling how spontaneous background noise crosses motor execution thresholds.
+5. **Slide 11 (Public Health Quarantine Recidivism):** Comparative bar chart demonstrating that Norway's restorative public health quarantine model achieves a 20% recidivism rate versus 68% for retributive penal systems.
+6. **Slide 13 (The Agency Dividend & Flourishing):** Multi-axis radar chart showing significant uplifts in prosocial empathy, goal persistence, and mental resilience under conscious agency versus fatalistic nihilism.

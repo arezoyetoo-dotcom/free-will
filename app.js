@@ -16,6 +16,78 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error("Failed to init LibetExperiment", e);
   }
 
+  
+  // 0. Initialize WebGL ShaderGradient & Liquid Glass Systems
+  let shaderEngine = null;
+  try {
+    if (typeof ShaderGradient !== 'undefined') {
+      shaderEngine = new ShaderGradient('shader-gradient-canvas');
+    }
+  } catch (e) {
+    console.warn('[ShaderGradient] Engine init fallback:', e);
+  }
+
+  const cyclePaletteBtn = document.getElementById('cycle-palette-btn');
+  const paletteNameEl = document.getElementById('palette-name');
+  if (cyclePaletteBtn && shaderEngine) {
+    cyclePaletteBtn.addEventListener('click', () => {
+      const nextP = shaderEngine.nextPalette();
+      if (paletteNameEl) {
+        paletteNameEl.textContent = nextP.name.split(' ')[0];
+      }
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
+
+  // Theme Management (Radiant Sunlight ☀️ vs Luminous Aurora ✨)
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeIconEl = document.getElementById('theme-icon');
+  const themeLabelEl = document.getElementById('theme-label');
+
+  function applyTheme(isDark) {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      if (themeIconEl) themeIconEl.textContent = '✨';
+      if (themeLabelEl) themeLabelEl.textContent = 'Aurora';
+    } else {
+      document.documentElement.classList.remove('dark');
+      if (themeIconEl) themeIconEl.textContent = '☀️';
+      if (themeLabelEl) themeLabelEl.textContent = 'Radiant';
+    }
+    try {
+      localStorage.setItem('fw_theme', isDark ? 'dark' : 'light');
+    } catch (e) {}
+    updateAllChartsTheme();
+  }
+
+  // Initialize theme from storage (Default to Radiant / Bright)
+  let savedTheme = null;
+  try {
+    savedTheme = localStorage.getItem('fw_theme');
+  } catch (e) {}
+  
+  if (savedTheme === 'dark') {
+    applyTheme(true);
+  } else {
+    applyTheme(false); // Bright & Happy by default!
+  }
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      applyTheme(!isDark);
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
+
+  // Hero Deck Button
+  const heroDeckBtn = document.getElementById('hero-demo-deck-btn');
+  if (heroDeckBtn) {
+    heroDeckBtn.addEventListener('click', () => {
+      setMode('deck');
+    });
+  }
+
   // 2. Audio Ambience Toggle
   const audioBtn = document.getElementById('audio-toggle-btn');
   const audioStatus = document.getElementById('audio-status-text');
@@ -68,6 +140,357 @@ document.addEventListener('DOMContentLoaded', () => {
   const notesDrawer = document.getElementById('deck-notes-drawer');
   const fullscreenBtn = document.getElementById('deck-fullscreen-btn');
 
+  
+  // =========================================================================
+  // CHART.JS PRESENTATION SLIDE DATA VISUALIZATION ENGINE
+  // =========================================================================
+  const deckCharts = {};
+
+  function isDarkMode() {
+    return document.documentElement.classList.contains('dark');
+  }
+
+  function getTextColor() {
+    return isDarkMode() ? '#cbd5e1' : '#334155';
+  }
+
+  function getGridColor() {
+    return isDarkMode() ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 23, 42, 0.06)';
+  }
+
+  function initOrUpdateSlideCharts(slideIdx) {
+    if (typeof Chart === 'undefined') return;
+
+    // Slide 1 (0-indexed): Slide 02 / Consensus Donut
+    if (slideIdx === 1) {
+      const el = document.getElementById('deck-chart-survey');
+      if (el && !deckCharts.survey) {
+        deckCharts.survey = new Chart(el, {
+          type: 'doughnut',
+          data: {
+            labels: ['Compatibilism (Agency in Nature)', 'Libertarian Free Will', 'Hard Determinism (Zero Agency)', 'Other / Agnostic'],
+            datasets: [{
+              data: [59.2, 18.8, 11.2, 10.8],
+              backgroundColor: ['#06b6d4', '#f59e0b', '#f43f5e', '#a855f7'],
+              borderColor: isDarkMode() ? '#0f172a' : '#ffffff',
+              borderWidth: 3,
+              hoverOffset: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { animateScale: true, animateRotate: true, duration: 1000 },
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { color: getTextColor(), font: { size: 11, family: 'Inter' }, boxWidth: 14 }
+              },
+              tooltip: {
+                callbacks: {
+                  label: (ctx) => ` ${ctx.label}: ${ctx.raw}%`
+                }
+              }
+            },
+            cutout: '64%'
+          }
+        });
+      } else if (deckCharts.survey) {
+        deckCharts.survey.resize();
+      }
+    }
+
+    // Slide 3: Slide 04 / Libet EEG Readiness Potential Curve
+    if (slideIdx === 3) {
+      const el = document.getElementById('deck-chart-libet');
+      if (el && !deckCharts.libet) {
+        deckCharts.libet = new Chart(el, {
+          type: 'line',
+          data: {
+            labels: ['-1000ms', '-800ms', '-550ms (RP Starts)', '-400ms', '-200ms (Conscious Urge W)', '-100ms', '0ms (Action)'],
+            datasets: [
+              {
+                label: 'SMA Readiness Potential (μV)',
+                data: [0, -0.6, -2.1, -3.8, -5.4, -6.2, -7.1],
+                borderColor: '#38bdf8',
+                backgroundColor: 'rgba(56, 189, 248, 0.18)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.35,
+                pointRadius: [2, 3, 7, 3, 9, 3, 9],
+                pointBackgroundColor: ['#38bdf8', '#38bdf8', '#fbbf24', '#38bdf8', '#f43f5e', '#38bdf8', '#34d399']
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900 },
+            scales: {
+              y: {
+                reverse: true,
+                title: { display: true, text: 'Cortical Potential (μV)', color: getTextColor() },
+                ticks: { color: getTextColor() },
+                grid: { color: getGridColor() }
+              },
+              x: {
+                ticks: { color: getTextColor() },
+                grid: { color: getGridColor() }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+            }
+          }
+        });
+      } else if (deckCharts.libet) {
+        deckCharts.libet.resize();
+      }
+    }
+
+    // Slide 4: Slide 05 / Haynes fMRI BA10 Predictive Accuracy
+    if (slideIdx === 4) {
+      const el = document.getElementById('deck-chart-haynes');
+      if (el && !deckCharts.haynes) {
+        deckCharts.haynes = new Chart(el, {
+          type: 'line',
+          data: {
+            labels: ['-10s', '-8s', '-6s', '-4s', '-2s', '-1s', '0s (Awareness)'],
+            datasets: [
+              {
+                label: 'BA10 Choice Decoding Accuracy (%)',
+                data: [50, 58.8, 60.5, 63.2, 66.4, 76.5, 100],
+                borderColor: '#a855f7',
+                backgroundColor: 'rgba(168, 85, 247, 0.2)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.35,
+                pointRadius: 6,
+                pointBackgroundColor: '#a855f7'
+              },
+              {
+                label: 'Random Chance Baseline (50%)',
+                data: [50, 50, 50, 50, 50, 50, 50],
+                borderColor: '#94a3b8',
+                borderWidth: 2,
+                borderDash: [6, 4],
+                fill: false,
+                pointRadius: 0
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900 },
+            scales: {
+              y: {
+                min: 45,
+                max: 105,
+                title: { display: true, text: 'Decoding Precision (%)', color: getTextColor() },
+                ticks: { color: getTextColor() },
+                grid: { color: getGridColor() }
+              },
+              x: {
+                ticks: { color: getTextColor() },
+                grid: { color: getGridColor() }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+            }
+          }
+        });
+      } else if (deckCharts.haynes) {
+        deckCharts.haynes.resize();
+      }
+    }
+
+    // Slide 5: Slide 06 / Schurger Stochastic Noise Model
+    if (slideIdx === 5) {
+      const el = document.getElementById('deck-chart-schurger');
+      if (el && !deckCharts.schurger) {
+        deckCharts.schurger = new Chart(el, {
+          type: 'line',
+          data: {
+            labels: ['0ms', '200ms', '400ms', '600ms', '800ms', '1000ms', '1200ms', '1400ms'],
+            datasets: [
+              {
+                label: 'Spontaneous Neural Drift',
+                data: [0.15, 0.28, 0.22, 0.48, 0.39, 0.68, 0.74, 0.94],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.18)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 5,
+                pointBackgroundColor: '#10b981'
+              },
+              {
+                label: 'Motor Decision Boundary',
+                data: [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9],
+                borderColor: '#f43f5e',
+                borderWidth: 2,
+                borderDash: [6, 4],
+                fill: false,
+                pointRadius: 0
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900 },
+            scales: {
+              y: {
+                min: 0,
+                max: 1.1,
+                title: { display: true, text: 'Accumulated Signal', color: getTextColor() },
+                ticks: { color: getTextColor() },
+                grid: { color: getGridColor() }
+              },
+              x: {
+                ticks: { color: getTextColor() },
+                grid: { color: getGridColor() }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+            }
+          }
+        });
+      } else if (deckCharts.schurger) {
+        deckCharts.schurger.resize();
+      }
+    }
+
+    // Slide 10: Slide 11 / Public Health Quarantine Justice Recidivism
+    if (slideIdx === 10) {
+      const el = document.getElementById('deck-chart-justice');
+      if (el && !deckCharts.justice) {
+        deckCharts.justice = new Chart(el, {
+          type: 'bar',
+          data: {
+            labels: ['Retributive Punishment (Blame-Based)', 'Restorative Quarantine (Nordic Model)'],
+            datasets: [
+              {
+                label: '2-Year Recidivism Rate (%)',
+                data: [68.0, 20.0],
+                backgroundColor: ['#f43f5e', '#10b981'],
+                borderRadius: 8
+              },
+              {
+                label: 'Rehabilitation & Public Safety Index (/100)',
+                data: [32.0, 88.0],
+                backgroundColor: ['#94a3b8', '#06b6d4'],
+                borderRadius: 8
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900 },
+            scales: {
+              y: {
+                max: 100,
+                ticks: { color: getTextColor() },
+                grid: { color: getGridColor() }
+              },
+              x: {
+                ticks: { color: getTextColor(), font: { size: 10 } },
+                grid: { display: false }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+            }
+          }
+        });
+      } else if (deckCharts.justice) {
+        deckCharts.justice.resize();
+      }
+    }
+
+    // Slide 12: Slide 13 / The Agency Dividend & Flourishing
+    if (slideIdx === 12) {
+      const el = document.getElementById('deck-chart-agency');
+      if (el && !deckCharts.agency) {
+        deckCharts.agency = new Chart(el, {
+          type: 'radar',
+          data: {
+            labels: ['Prosocial Empathy', 'Goal Persistence', 'Mental Resilience', 'Moral Accountability', 'Growth Mindset'],
+            datasets: [
+              {
+                label: 'Nihilistic Fatalism ("I have no control")',
+                data: [35, 28, 40, 32, 25],
+                borderColor: '#f43f5e',
+                backgroundColor: 'rgba(244, 63, 94, 0.25)',
+                borderWidth: 2,
+                pointRadius: 4
+              },
+              {
+                label: 'Conscious Agency ("I author my actions")',
+                data: [88, 92, 85, 90, 95],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.28)',
+                borderWidth: 2,
+                pointRadius: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 1000 },
+            scales: {
+              r: {
+                min: 0,
+                max: 100,
+                ticks: { display: false },
+                pointLabels: { color: getTextColor(), font: { size: 10, family: 'Inter' } },
+                grid: { color: getGridColor() },
+                angleLines: { color: getGridColor() }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+            }
+          }
+        });
+      } else if (deckCharts.agency) {
+        deckCharts.agency.resize();
+      }
+    }
+  }
+
+  function updateAllChartsTheme() {
+    Object.values(deckCharts).forEach((chart) => {
+      if (!chart) return;
+      if (chart.options.plugins && chart.options.plugins.legend) {
+        chart.options.plugins.legend.labels.color = getTextColor();
+      }
+      if (chart.options.scales) {
+        if (chart.options.scales.x) {
+          if (chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = getTextColor();
+          if (chart.options.scales.x.grid) chart.options.scales.x.grid.color = getGridColor();
+        }
+        if (chart.options.scales.y) {
+          if (chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = getTextColor();
+          if (chart.options.scales.y.grid) chart.options.scales.y.grid.color = getGridColor();
+          if (chart.options.scales.y.title) chart.options.scales.y.title.color = getTextColor();
+        }
+        if (chart.options.scales.r) {
+          if (chart.options.scales.r.pointLabels) chart.options.scales.r.pointLabels.color = getTextColor();
+          if (chart.options.scales.r.grid) chart.options.scales.r.grid.color = getGridColor();
+          if (chart.options.scales.r.angleLines) chart.options.scales.r.angleLines.color = getGridColor();
+        }
+      }
+      chart.update();
+    });
+  }
+
+
   function updateSlide(newIdx) {
     if (newIdx < 0 || newIdx >= totalSlides) return;
     slides[currentSlide].classList.remove('active');
@@ -90,6 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.soundEngine.playClick();
+    initOrUpdateSlideCharts(currentSlide);
   }
 
   if (prevSlideBtn && nextSlideBtn) {
@@ -144,6 +568,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (e.key === 'o' || e.key === 'O') {
       setMode('odyssey');
+    }
+    if (e.key === 't' || e.key === 'T') {
+      const isDark = document.documentElement.classList.contains('dark');
+      applyTheme(!isDark);
+      return;
     }
     if (e.key === 'p' || e.key === 'P') {
       setMode('deck');

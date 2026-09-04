@@ -25,6 +25,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  
+  // TV Mode Toggle (Scales presentation fonts for 55"-85" TVs)
+  const tvModeBtn = document.getElementById('tv-mode-btn');
+  const tvModeLabel = document.getElementById('tv-mode-label');
+
+  function toggleTvMode() {
+    const isTv = document.body.classList.toggle('tv-mode');
+    if (tvModeLabel) {
+      tvModeLabel.textContent = isTv ? "TV Mode: ON" : "TV Mode";
+    }
+    if (tvModeBtn) {
+      tvModeBtn.classList.toggle('bg-[#1e3a5f]', isTv);
+      tvModeBtn.classList.toggle('border-[#7dd3fc]', isTv);
+    }
+    if (window.soundEngine) window.soundEngine.playClick();
+    // Resize active chart for TV mode
+    initOrUpdateSlideCharts(currentSlide);
+  }
+
+  if (tvModeBtn) {
+    tvModeBtn.addEventListener('click', toggleTvMode);
+  }
+
+  // Export PDF / Print Presentation
+  const exportPdfBtn = document.getElementById('export-pdf-btn');
+  if (exportPdfBtn) {
+    exportPdfBtn.addEventListener('click', () => {
+      // Ensure presentation mode is active so print stylesheet captures all slides
+      setMode('deck');
+      setTimeout(() => {
+        window.print();
+      }, 250);
+    });
+  }
+
+  // TV Guide Modal
+  const tvGuideBtn = document.getElementById('tv-guide-btn');
+  const closeTvGuideBtn = document.getElementById('close-tv-guide-btn');
+  const tvGuideModal = document.getElementById('tv-guide-modal');
+
+  if (tvGuideBtn && tvGuideModal) {
+    tvGuideBtn.addEventListener('click', () => {
+      tvGuideModal.classList.remove('hidden');
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
+  if (closeTvGuideBtn && tvGuideModal) {
+    closeTvGuideBtn.addEventListener('click', () => {
+      tvGuideModal.classList.add('hidden');
+      if (window.soundEngine) window.soundEngine.playClick();
+    });
+  }
+
   // 2. Audio Ambience Toggle
   const audioBtn = document.getElementById('audio-toggle-btn');
   const audioStatus = document.getElementById('audio-status-text');
@@ -501,6 +554,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (e.key === 'o' || e.key === 'O') {
       setMode('odyssey');
+    }
+    if (e.key === 't' || e.key === 'T') {
+      toggleTvMode();
+      return;
     }
     if (e.key === 'p' || e.key === 'P') {
       setMode('deck');

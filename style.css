@@ -1,45 +1,48 @@
-/* Free Will: Real or Fake? - Clinical & Existential Aesthetic
+/* Free Will: Real or Fake? - High-Visibility Clinical & Existential Aesthetic
  * Palette:
- * - Deep Charcoal / True Black: Heavy existential burden, unconscious mystery
- * - Clinical White / Silver: Stark scientific lens, objective precision
- * - Steel Blue: Cold mechanical causality, falling dominoes, legal architecture
- * - Desaturated Forest Green: Grounding crossroads, human feeling of choice
+ * - Deep Charcoal / True Black: Heavy existential burden, unconscious depth (#06070a, #0b0d13)
+ * - Clinical White / Brilliant Silver: Stark scientific lens, high readability (#ffffff, #f8fafc)
+ * - Bright Steel Blue (Primary Accent): Cold mechanical causality, falling dominoes (#7dd3fc, #38bdf8)
+ * - Bright Desaturated Forest Green (Secondary Accent): The human crossroads (#86efac, #4ade80)
+ * - Bright Amber / Gold: Important philosophical principles (#fde047, #facc15)
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* Backgrounds: Deep Charcoal & True Black */
   --bg-deep: #06070a;
   --bg-surface: #0b0d13;
-  --bg-card: rgba(13, 16, 23, 0.88);
+  --bg-card: rgba(13, 16, 23, 0.94);
   --bg-card-elevated: #11141e;
 
-  /* Text & Borders: Clinical White & Silver */
+  /* High-Contrast Bright Text */
   --text-white: #ffffff;
-  --text-silver: #cbd5e1;
-  --text-muted: #7e8b9b;
-  --border-clinical: rgba(203, 213, 225, 0.14);
-  --border-clinical-bright: rgba(255, 255, 255, 0.28);
-  --border-silver: #242b38;
+  --text-silver: #f8fafc;
+  --text-muted: #e2e8f0;
 
-  /* Primary Accent: Steel Blue (Cold, mechanical, inevitable) */
-  --accent-steel: #507d9b;
-  --accent-steel-bright: #6ea0bf;
-  --accent-steel-dark: #375970;
-  --accent-steel-glow: rgba(80, 125, 155, 0.25);
-  --accent-steel-bg: rgba(80, 125, 155, 0.12);
+  /* Borders */
+  --border-clinical: rgba(203, 213, 225, 0.22);
+  --border-clinical-bright: rgba(255, 255, 255, 0.45);
+  --border-silver: #334155;
 
-  /* Secondary Accent: Desaturated Forest Green (Muted, isolated, crossroads) */
-  --accent-forest: #4b6b52;
-  --accent-forest-bright: #638a6b;
-  --accent-forest-dark: #354e3b;
-  --accent-forest-glow: rgba(75, 107, 82, 0.25);
-  --accent-forest-bg: rgba(75, 107, 82, 0.14);
+  /* Primary Accent: Bright Steel Blue */
+  --accent-steel: #38bdf8;
+  --accent-steel-bright: #7dd3fc;
+  --accent-steel-dark: #1e3a5f;
+  --accent-steel-glow: rgba(125, 211, 252, 0.35);
+  --accent-steel-bg: rgba(56, 189, 248, 0.16);
 
-  /* Subtle Indicators */
-  --accent-alert: #964747;
-  --accent-warning: #a1834a;
+  /* Secondary Accent: Bright Desaturated Forest Green */
+  --accent-forest: #4ade80;
+  --accent-forest-bright: #86efac;
+  --accent-forest-dark: #1c3b24;
+  --accent-forest-glow: rgba(134, 239, 172, 0.35);
+  --accent-forest-bg: rgba(74, 222, 128, 0.16);
+
+  /* Highlight Accents */
+  --accent-gold: #fde047;
+  --accent-alert: #fca5a5;
 }
 
 * {
@@ -50,10 +53,31 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-deep);
-  color: var(--text-silver);
+  color: #f8fafc;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Eliminate all dim/muddy gray text across the entire application */
+.text-slate-600,
+.text-slate-500 {
+  color: #cbd5e1 !important; /* Crisp readable silver */
+}
+
+.text-slate-400 {
+  color: #e2e8f0 !important; /* Very light silver-white */
+}
+
+.text-slate-300 {
+  color: #f8fafc !important; /* Near pure white */
+}
+
+.text-slate-200,
+.text-slate-100 {
+  color: #ffffff !important; /* 100% pure clinical white */
 }
 
 /* Static, zero-overhead background atmosphere (No canvas, 0% CPU) */
@@ -63,8 +87,8 @@ body {
   pointer-events: none;
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(203, 213, 225, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(203, 213, 225, 0.025) 1px, transparent 1px);
+    linear-gradient(to right, rgba(203, 213, 225, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203, 213, 225, 0.035) 1px, transparent 1px);
   z-index: 0;
 }
 
@@ -73,8 +97,8 @@ body {
   inset: 0;
   pointer-events: none;
   background: 
-    radial-gradient(circle at 50% 12%, rgba(80, 125, 155, 0.08), transparent 60%),
-    radial-gradient(circle at 80% 85%, rgba(75, 107, 82, 0.06), transparent 50%),
+    radial-gradient(circle at 50% 12%, rgba(56, 189, 248, 0.09), transparent 65%),
+    radial-gradient(circle at 80% 85%, rgba(74, 222, 128, 0.07), transparent 55%),
     linear-gradient(to bottom, transparent 65%, #06070a 95%);
   z-index: 0;
 }
@@ -87,49 +111,70 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* Bright Colored Text Utility Classes */
+.text-steel-bright {
+  color: #7dd3fc !important;
+  text-shadow: 0 0 14px rgba(125, 211, 252, 0.4);
+}
+
+.text-forest-bright {
+  color: #86efac !important;
+  text-shadow: 0 0 14px rgba(134, 239, 172, 0.4);
+}
+
+.text-gold-bright {
+  color: #fde047 !important;
+  text-shadow: 0 0 14px rgba(253, 224, 71, 0.4);
+}
+
+.text-white-bright {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
 /* Stark Clinical Cards */
 .glass-panel,
 .clinical-card {
   position: relative;
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-clinical);
-  border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .glass-panel:hover,
 .clinical-card:hover {
   border-color: var(--border-clinical-bright);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Buttons */
+/* High Visibility Action Buttons */
 .clinical-btn-steel {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0.65rem 1.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: #ffffff;
-  background: #375970;
-  border: 1px solid #507d9b;
+  background: #1e3a5f;
+  border: 1px solid #38bdf8;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
   transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
 }
 
 .clinical-btn-steel:hover {
-  background: #446d88;
-  border-color: #6ea0bf;
+  background: #2563eb;
+  border-color: #7dd3fc;
   transform: translateY(-1px);
 }
 
@@ -142,24 +187,24 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0.65rem 1.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #e2e8f0;
-  background: #2f4434;
-  border: 1px solid #4b6b52;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  background: #1c3b24;
+  border: 1px solid #4ade80;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 14px rgba(74, 222, 128, 0.25);
   transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
 }
 
 .clinical-btn-forest:hover {
-  background: #3b5742;
-  border-color: #638a6b;
+  background: #15803d;
+  border-color: #86efac;
   transform: translateY(-1px);
 }
 
@@ -172,11 +217,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.55rem 1rem;
-  font-size: 0.75rem;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   font-family: 'JetBrains Mono', monospace;
-  color: var(--text-silver);
-  background: rgba(17, 20, 30, 0.6);
+  color: #f8fafc;
+  background: rgba(18, 22, 34, 0.8);
   border: 1px solid var(--border-clinical);
   border-radius: 8px;
   cursor: pointer;
@@ -184,20 +230,20 @@ body {
 }
 
 .clinical-btn-ghost:hover {
-  border-color: var(--border-clinical-bright);
+  border-color: #ffffff;
   color: #ffffff;
-  background: rgba(24, 29, 42, 0.8);
+  background: rgba(30, 36, 54, 0.9);
 }
 
 /* Two-column and grid layouts from slides skill */
 .slide-split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
   align-items: center;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .slide-split {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -210,47 +256,59 @@ body {
   gap: 16px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .slide-metrics {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 520px) {
   .slide-metrics {
     grid-template-columns: 1fr;
   }
 }
 
-/* Metric Display Numbers */
+/* Metric Display Numbers (Bright & Oversized) */
 .metric-number-steel {
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 2.2rem;
+  font-weight: 800;
+  font-size: 2.6rem;
   line-height: 1.1;
-  color: #6ea0bf;
+  color: #7dd3fc;
+  text-shadow: 0 0 16px rgba(125, 211, 252, 0.45);
 }
 
 .metric-number-forest {
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 2.2rem;
+  font-weight: 800;
+  font-size: 2.6rem;
   line-height: 1.1;
-  color: #638a6b;
+  color: #86efac;
+  text-shadow: 0 0 16px rgba(134, 239, 172, 0.45);
+}
+
+.metric-number-gold {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 1.1;
+  color: #fde047;
+  text-shadow: 0 0 16px rgba(253, 224, 71, 0.45);
 }
 
 .metric-number-silver {
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 2.2rem;
+  font-weight: 800;
+  font-size: 2.6rem;
   line-height: 1.1;
-  color: #e2e8f0;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
 
 /* Chart Canvas Wrapper */
 .chart-card {
   position: relative;
   width: 100%;
-  height: 270px;
+  height: 290px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,17 +316,17 @@ body {
 
 /* Custom Tactical Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
 }
 ::-webkit-scrollbar-track {
   background: #06070a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1c222e;
-  border-radius: 3px;
+  background: #253347;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #507d9b;
+  background: #38bdf8;
 }
 
 /* Slide Deck Styling (Presentation Mode) */
@@ -294,40 +352,139 @@ body {
   transform: translateY(0);
 }
 
+.deck-slide h2 {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 2.25rem;
+}
+
+.deck-slide p,
+.deck-slide li {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: #f8fafc !important;
+}
+
+.deck-slide strong {
+  color: #7dd3fc !important;
+  font-weight: 700;
+}
+
+.deck-slide em {
+  color: #86efac !important;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* TV & Big Screen Presentation Mode (55"-85" TV View) */
+body.tv-mode .deck-slide {
+  padding: 3.5rem !important;
+  min-height: 580px !important;
+}
+body.tv-mode .deck-slide h2 {
+  font-size: 3.25rem !important;
+  line-height: 1.2 !important;
+}
+body.tv-mode .deck-slide p,
+body.tv-mode .deck-slide li {
+  font-size: 1.35rem !important;
+  line-height: 1.85 !important;
+}
+body.tv-mode .chart-card {
+  height: 350px !important;
+}
+body.tv-mode .metric-number-steel,
+body.tv-mode .metric-number-forest {
+  font-size: 3.5rem !important;
+}
+
 /* Pulsing Status Dot */
 .pulsing-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: #6ea0bf;
-  box-shadow: 0 0 8px rgba(110, 160, 191, 0.6);
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
 }
 
 /* Sliders */
 input[type=range] {
   -webkit-appearance: none;
-  background: #191e28;
+  background: #253347;
   border-radius: 4px;
-  height: 5px;
+  height: 6px;
   outline: none;
 }
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
-  background: #6ea0bf;
+  background: #38bdf8;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(110, 160, 191, 0.6);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
   transition: transform 0.12s ease;
 }
 input[type=range]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+  transform: scale(1.25);
 }
 
 /* Modal Backdrop */
 .modal-backdrop {
-  background: rgba(4, 5, 7, 0.88);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(4, 5, 7, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ========================================================================= */
+/* PRINT / PDF EXPORT ENGINE (Save Presentation to 14-Page Landscape PDF)    */
+/* ========================================================================= */
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  body {
+    background: #06070a !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  header,
+  #odyssey-view,
+  .clinical-grid,
+  .clinical-vignette,
+  #deck-notes-drawer,
+  .bottom-deck-controls,
+  #doc-modal,
+  .top-deck-info-bar,
+  #tv-guide-modal {
+    display: none !important;
+  }
+
+  #deck-view {
+    display: block !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .deck-slide {
+    display: flex !important;
+    opacity: 1 !important;
+    transform: none !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    box-sizing: border-box !important;
+    padding: 48px !important;
+    background: #090b10 !important;
+    border: none !important;
+    box-shadow: none !important;
+    justify-content: center !important;
+  }
 }

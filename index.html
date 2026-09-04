@@ -47,15 +47,30 @@
       </div>
 
       <!-- Action Tools (Audio, Documentation) -->
-      <div class="flex items-center space-x-2.5">
-        <button id="audio-toggle-btn" class="clinical-btn-ghost text-xs px-3 py-1.5">
-          <span>🔊</span>
-          <span id="audio-status-text" class="font-mono text-[11px] hidden sm:inline">Audio: OFF</span>
+      <div class="flex items-center space-x-2">
+        <button id="tv-mode-btn" title="Toggle TV / Large Screen Presentation Scale (Hotkey: T)" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border border-[#38bdf8]/50 text-[#7dd3fc] hover:border-[#7dd3fc]">
+          <span>📺</span>
+          <span id="tv-mode-label" class="font-mono text-[11px] hidden md:inline">TV Mode</span>
         </button>
 
-        <button id="open-doc-btn" class="clinical-btn-ghost text-xs px-3 py-1.5 border-[#507d9b]/40 text-[#6ea0bf]">
+        <button id="export-pdf-btn" title="Export Presentation as 14-Page Landscape PDF" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border border-[#4ade80]/50 text-[#86efac] hover:border-[#86efac]">
+          <span>🖨️</span>
+          <span class="font-mono text-[11px] hidden sm:inline">Save PDF</span>
+        </button>
+
+        <button id="tv-guide-btn" title="How to run on a TV or use PowerPoint" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border border-[#fde047]/50 text-[#fde047] hover:border-[#fde047]">
+          <span>❓</span>
+          <span class="font-mono text-[11px] hidden lg:inline">TV Guide</span>
+        </button>
+
+        <button id="audio-toggle-btn" class="clinical-btn-ghost text-xs px-2.5 py-1.5">
+          <span>🔊</span>
+          <span id="audio-status-text" class="font-mono text-[11px] hidden xl:inline">Audio: OFF</span>
+        </button>
+
+        <button id="open-doc-btn" class="clinical-btn-ghost text-xs px-2.5 py-1.5 border-[#507d9b]/40 text-[#7dd3fc]">
           <span>📖</span>
-          <span class="font-mono text-[11px]">Monograph</span>
+          <span class="font-mono text-[11px] hidden sm:inline">Monograph</span>
         </button>
       </div>
     </div>
@@ -1269,6 +1284,76 @@
         <p>4. <strong>The Philosophical Trilemma:</strong> Hard Determinism (Spinoza), "Free Won't" conscious veto (Libet), and Compatibilism (Hume/Dennett).</p>
         <p>5. <strong>Rules & Justice:</strong> Retributive punishment vs deterministic quarantine and deterrence.</p>
         <p>6. <strong>The Burden of Choice:</strong> Jean-Paul Sartre's radical existential responsibility ("Man is condemned to be free") and Bad Faith.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: TV PRESENTATION & PDF / POWERPOINT GUIDE                           -->
+  <!-- ========================================================================= -->
+  <div id="tv-guide-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="clinical-card max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden border-[#38bdf8]/40 bg-[#0c0f17] shadow-2xl">
+      <div class="flex items-center justify-between p-4 border-b border-slate-800 bg-[#080a0f]">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">📺</span>
+          <h3 class="text-base font-cinzel font-bold text-white">How to Run on a TV (or Export to PDF / PowerPoint)</h3>
+        </div>
+        <button id="close-tv-guide-btn" class="text-slate-400 hover:text-white text-xl px-2 font-mono">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-200">
+        
+        <div class="p-4 rounded-xl border border-[#38bdf8]/40 bg-[#1e3a5f]/25 space-y-2">
+          <h4 class="text-[#7dd3fc] font-bold text-base flex items-center space-x-2">
+            <span>✨</span>
+            <span>Running Live on TV is Far Superior to PowerPoint!</span>
+          </h4>
+          <p class="text-xs text-slate-200 leading-relaxed">
+            PowerPoint and static PDFs cannot run the <strong>real-time physics engine</strong> (falling domino chain with slow-mo), the <strong>300ms Libet oscilloscope & EEG clock</strong>, the <strong>interactive thought experiments</strong> (Black & Jones, Sapolsky scale, Quantum decay), or the <strong>dynamic Chart.js graphs</strong>. Running this live web app on your TV provides an unforgettable, professional experience!
+          </p>
+        </div>
+
+        <!-- The 4 Methods -->
+        <div class="space-y-4">
+          <h4 class="font-bold text-white text-xs uppercase tracking-wider font-mono">Four Simple Ways to Present on a TV:</h4>
+          
+          <div class="p-4 rounded-xl border border-slate-800 bg-[#111520] space-y-2">
+            <span class="text-xs font-mono font-bold text-[#7dd3fc] block">METHOD 1 (RECOMMENDED): Laptop to TV via HDMI Cable</span>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              1. Connect an HDMI cable from your laptop/PC to your TV.<br/>
+              2. Open this app in Chrome / Edge / Firefox.<br/>
+              3. Press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-[#7dd3fc]">P</kbd> to enter Presentation Deck mode, then press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-[#7dd3fc]">F</kbd> for Fullscreen.<br/>
+              4. Click <strong class="text-white">"TV Mode"</strong> (or press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-[#7dd3fc]">T</kbd>) to enlarge text for 10–20 ft distance viewing. Use Arrow Keys or Space to advance slides!
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-slate-800 bg-[#111520] space-y-2">
+            <span class="text-xs font-mono font-bold text-[#86efac] block">METHOD 2: Wireless Screen Cast (Chromecast / AirPlay / Miracast)</span>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              1. In Chrome / Edge on your laptop or phone, click the three dots menu ⋮ → <strong>"Cast..."</strong>.<br/>
+              2. Select your Smart TV or Chromecast device. Click "Cast Tab".<br/>
+              3. Fullscreen the presentation and control it directly from your laptop or phone.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-slate-800 bg-[#111520] space-y-2">
+            <span class="text-xs font-mono font-bold text-[#fde047] block">METHOD 3: Direct Smart TV Web Browser (Zero Cables)</span>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              1. Open the built-in Internet browser on your Samsung (Tizen), LG (webOS), Sony, or Google TV.<br/>
+              2. Type in the public link: <code class="text-[#7dd3fc] font-bold">https://arezoyetoo-dotcom.github.io/free-will/</code><br/>
+              3. Use your TV remote or a wireless presentation clicker / USB mouse to navigate!
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-slate-800 bg-[#111520] space-y-2">
+            <span class="text-xs font-mono font-bold text-[#fca5a5] block">METHOD 4: Export to 14-Page Landscape PDF</span>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              If your venue strictly requires a standalone PDF file or USB drive without a browser: click the <strong class="text-white">"🖨️ Save PDF"</strong> button in the header (or press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700">Ctrl+P</kbd>). Destination: <em>Save as PDF</em>, Layout: <em>Landscape</em>. Every slide is formatted into an individual widescreen page!
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

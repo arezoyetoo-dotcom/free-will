@@ -1,0 +1,12 @@
+{
+  "name": "free-will-lecture-experience",
+  "version": "1.0.0",
+  "description": "Free Will: Real or Fake? - Interactive Philosophical Odyssey & Lecture Presentation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

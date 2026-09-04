@@ -17,69 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   
-  // 0. Initialize WebGL ShaderGradient & Liquid Glass Systems
-  let shaderEngine = null;
-  try {
-    if (typeof ShaderGradient !== 'undefined') {
-      shaderEngine = new ShaderGradient('shader-gradient-canvas');
-    }
-  } catch (e) {
-    console.warn('[ShaderGradient] Engine init fallback:', e);
-  }
-
-  const cyclePaletteBtn = document.getElementById('cycle-palette-btn');
-  const paletteNameEl = document.getElementById('palette-name');
-  if (cyclePaletteBtn && shaderEngine) {
-    cyclePaletteBtn.addEventListener('click', () => {
-      const nextP = shaderEngine.nextPalette();
-      if (paletteNameEl) {
-        paletteNameEl.textContent = nextP.name.split(' ')[0];
-      }
-      if (window.soundEngine) window.soundEngine.playClick();
-    });
-  }
-
-  // Theme Management (Radiant Sunlight ☀️ vs Luminous Aurora ✨)
-  const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  const themeIconEl = document.getElementById('theme-icon');
-  const themeLabelEl = document.getElementById('theme-label');
-
-  function applyTheme(isDark) {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      if (themeIconEl) themeIconEl.textContent = '✨';
-      if (themeLabelEl) themeLabelEl.textContent = 'Aurora';
-    } else {
-      document.documentElement.classList.remove('dark');
-      if (themeIconEl) themeIconEl.textContent = '☀️';
-      if (themeLabelEl) themeLabelEl.textContent = 'Radiant';
-    }
-    try {
-      localStorage.setItem('fw_theme', isDark ? 'dark' : 'light');
-    } catch (e) {}
-    updateAllChartsTheme();
-  }
-
-  // Initialize theme from storage (Default to Radiant / Bright)
-  let savedTheme = null;
-  try {
-    savedTheme = localStorage.getItem('fw_theme');
-  } catch (e) {}
-  
-  if (savedTheme === 'dark') {
-    applyTheme(true);
-  } else {
-    applyTheme(false); // Bright & Happy by default!
-  }
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      applyTheme(!isDark);
-      if (window.soundEngine) window.soundEngine.playClick();
-    });
-  }
-
   // Hero Deck Button
   const heroDeckBtn = document.getElementById('hero-demo-deck-btn');
   if (heroDeckBtn) {
@@ -146,16 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   const deckCharts = {};
 
-  function isDarkMode() {
-    return document.documentElement.classList.contains('dark');
-  }
-
   function getTextColor() {
-    return isDarkMode() ? '#cbd5e1' : '#334155';
+    return '#cbd5e1';
   }
 
   function getGridColor() {
-    return isDarkMode() ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 23, 42, 0.06)';
+    return 'rgba(203, 213, 225, 0.08)';
   }
 
   function initOrUpdateSlideCharts(slideIdx) {
@@ -171,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             labels: ['Compatibilism (Agency in Nature)', 'Libertarian Free Will', 'Hard Determinism (Zero Agency)', 'Other / Agnostic'],
             datasets: [{
               data: [59.2, 18.8, 11.2, 10.8],
-              backgroundColor: ['#06b6d4', '#f59e0b', '#f43f5e', '#a855f7'],
+              backgroundColor: ['#6ea0bf', '#638a6b', '#9e4444', '#4a5568'],
               borderColor: isDarkMode() ? '#0f172a' : '#ffffff',
               borderWidth: 3,
               hoverOffset: 8
@@ -184,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plugins: {
               legend: {
                 position: 'bottom',
-                labels: { color: getTextColor(), font: { size: 11, family: 'Inter' }, boxWidth: 14 }
+                labels: { color: '#cbd5e1', font: { size: 11, family: 'Inter' }, boxWidth: 14 }
               },
               tooltip: {
                 callbacks: {
@@ -212,8 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
               {
                 label: 'SMA Readiness Potential (μV)',
                 data: [0, -0.6, -2.1, -3.8, -5.4, -6.2, -7.1],
-                borderColor: '#38bdf8',
-                backgroundColor: 'rgba(56, 189, 248, 0.18)',
+                borderColor: '#6ea0bf',
+                backgroundColor: 'rgba(110, 160, 191, 0.2)',
                 borderWidth: 3,
                 fill: true,
                 tension: 0.35,
@@ -229,17 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
             scales: {
               y: {
                 reverse: true,
-                title: { display: true, text: 'Cortical Potential (μV)', color: getTextColor() },
-                ticks: { color: getTextColor() },
-                grid: { color: getGridColor() }
+                title: { display: true, text: 'Cortical Potential (μV)', color: '#cbd5e1' },
+                ticks: { color: '#cbd5e1' },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' }
               },
               x: {
-                ticks: { color: getTextColor() },
-                grid: { color: getGridColor() }
+                ticks: { color: '#cbd5e1' },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' }
               }
             },
             plugins: {
-              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+              legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
             }
           }
         });
@@ -260,13 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
               {
                 label: 'BA10 Choice Decoding Accuracy (%)',
                 data: [50, 58.8, 60.5, 63.2, 66.4, 76.5, 100],
-                borderColor: '#a855f7',
-                backgroundColor: 'rgba(168, 85, 247, 0.2)',
+                borderColor: '#6ea0bf',
+                backgroundColor: 'rgba(110, 160, 191, 0.2)',
                 borderWidth: 3,
                 fill: true,
                 tension: 0.35,
                 pointRadius: 6,
-                pointBackgroundColor: '#a855f7'
+                pointBackgroundColor: '#6ea0bf'
               },
               {
                 label: 'Random Chance Baseline (50%)',
@@ -287,17 +220,17 @@ document.addEventListener('DOMContentLoaded', () => {
               y: {
                 min: 45,
                 max: 105,
-                title: { display: true, text: 'Decoding Precision (%)', color: getTextColor() },
-                ticks: { color: getTextColor() },
-                grid: { color: getGridColor() }
+                title: { display: true, text: 'Decoding Precision (%)', color: '#cbd5e1' },
+                ticks: { color: '#cbd5e1' },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' }
               },
               x: {
-                ticks: { color: getTextColor() },
-                grid: { color: getGridColor() }
+                ticks: { color: '#cbd5e1' },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' }
               }
             },
             plugins: {
-              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+              legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
             }
           }
         });
@@ -318,18 +251,18 @@ document.addEventListener('DOMContentLoaded', () => {
               {
                 label: 'Spontaneous Neural Drift',
                 data: [0.15, 0.28, 0.22, 0.48, 0.39, 0.68, 0.74, 0.94],
-                borderColor: '#10b981',
-                backgroundColor: 'rgba(16, 185, 129, 0.18)',
+                borderColor: '#638a6b',
+                backgroundColor: 'rgba(99, 138, 107, 0.2)',
                 borderWidth: 3,
                 fill: true,
                 tension: 0.3,
                 pointRadius: 5,
-                pointBackgroundColor: '#10b981'
+                pointBackgroundColor: '#638a6b'
               },
               {
                 label: 'Motor Decision Boundary',
                 data: [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9],
-                borderColor: '#f43f5e',
+                borderColor: '#9e4444',
                 borderWidth: 2,
                 borderDash: [6, 4],
                 fill: false,
@@ -345,17 +278,17 @@ document.addEventListener('DOMContentLoaded', () => {
               y: {
                 min: 0,
                 max: 1.1,
-                title: { display: true, text: 'Accumulated Signal', color: getTextColor() },
-                ticks: { color: getTextColor() },
-                grid: { color: getGridColor() }
+                title: { display: true, text: 'Accumulated Signal', color: '#cbd5e1' },
+                ticks: { color: '#cbd5e1' },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' }
               },
               x: {
-                ticks: { color: getTextColor() },
-                grid: { color: getGridColor() }
+                ticks: { color: '#cbd5e1' },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' }
               }
             },
             plugins: {
-              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+              legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
             }
           }
         });
@@ -376,13 +309,13 @@ document.addEventListener('DOMContentLoaded', () => {
               {
                 label: '2-Year Recidivism Rate (%)',
                 data: [68.0, 20.0],
-                backgroundColor: ['#f43f5e', '#10b981'],
+                backgroundColor: ['#9e4444', '#638a6b'],
                 borderRadius: 8
               },
               {
                 label: 'Rehabilitation & Public Safety Index (/100)',
                 data: [32.0, 88.0],
-                backgroundColor: ['#94a3b8', '#06b6d4'],
+                backgroundColor: ['#3b4758', '#6ea0bf'],
                 borderRadius: 8
               }
             ]
@@ -394,16 +327,16 @@ document.addEventListener('DOMContentLoaded', () => {
             scales: {
               y: {
                 max: 100,
-                ticks: { color: getTextColor() },
-                grid: { color: getGridColor() }
+                ticks: { color: '#cbd5e1' },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' }
               },
               x: {
-                ticks: { color: getTextColor(), font: { size: 10 } },
+                ticks: { color: '#cbd5e1', font: { size: 10 } },
                 grid: { display: false }
               }
             },
             plugins: {
-              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+              legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
             }
           }
         });
@@ -424,16 +357,16 @@ document.addEventListener('DOMContentLoaded', () => {
               {
                 label: 'Nihilistic Fatalism ("I have no control")',
                 data: [35, 28, 40, 32, 25],
-                borderColor: '#f43f5e',
-                backgroundColor: 'rgba(244, 63, 94, 0.25)',
+                borderColor: '#9e4444',
+                backgroundColor: 'rgba(158, 68, 68, 0.25)',
                 borderWidth: 2,
                 pointRadius: 4
               },
               {
                 label: 'Conscious Agency ("I author my actions")',
                 data: [88, 92, 85, 90, 95],
-                borderColor: '#10b981',
-                backgroundColor: 'rgba(16, 185, 129, 0.28)',
+                borderColor: '#6ea0bf',
+                backgroundColor: 'rgba(110, 160, 191, 0.25)',
                 borderWidth: 2,
                 pointRadius: 4
               }
@@ -448,13 +381,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 min: 0,
                 max: 100,
                 ticks: { display: false },
-                pointLabels: { color: getTextColor(), font: { size: 10, family: 'Inter' } },
-                grid: { color: getGridColor() },
-                angleLines: { color: getGridColor() }
+                pointLabels: { color: '#cbd5e1', font: { size: 10, family: 'Inter' } },
+                grid: { color: 'rgba(203, 213, 225, 0.08)' },
+                angleLines: { color: 'rgba(203, 213, 225, 0.08)' }
               }
             },
             plugins: {
-              legend: { labels: { color: getTextColor(), font: { size: 11 } } }
+              legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
             }
           }
         });
@@ -468,22 +401,22 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.values(deckCharts).forEach((chart) => {
       if (!chart) return;
       if (chart.options.plugins && chart.options.plugins.legend) {
-        chart.options.plugins.legend.labels.color = getTextColor();
+        chart.options.plugins.legend.labels.color = '#cbd5e1';
       }
       if (chart.options.scales) {
         if (chart.options.scales.x) {
-          if (chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = getTextColor();
-          if (chart.options.scales.x.grid) chart.options.scales.x.grid.color = getGridColor();
+          if (chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = '#cbd5e1';
+          if (chart.options.scales.x.grid) chart.options.scales.x.grid.color = 'rgba(203, 213, 225, 0.08)';
         }
         if (chart.options.scales.y) {
-          if (chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = getTextColor();
-          if (chart.options.scales.y.grid) chart.options.scales.y.grid.color = getGridColor();
-          if (chart.options.scales.y.title) chart.options.scales.y.title.color = getTextColor();
+          if (chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = '#cbd5e1';
+          if (chart.options.scales.y.grid) chart.options.scales.y.grid.color = 'rgba(203, 213, 225, 0.08)';
+          if (chart.options.scales.y.title) chart.options.scales.y.title.color = '#cbd5e1';
         }
         if (chart.options.scales.r) {
-          if (chart.options.scales.r.pointLabels) chart.options.scales.r.pointLabels.color = getTextColor();
-          if (chart.options.scales.r.grid) chart.options.scales.r.grid.color = getGridColor();
-          if (chart.options.scales.r.angleLines) chart.options.scales.r.angleLines.color = getGridColor();
+          if (chart.options.scales.r.pointLabels) chart.options.scales.r.pointLabels.color = '#cbd5e1';
+          if (chart.options.scales.r.grid) chart.options.scales.r.grid.color = 'rgba(203, 213, 225, 0.08)';
+          if (chart.options.scales.r.angleLines) chart.options.scales.r.angleLines.color = 'rgba(203, 213, 225, 0.08)';
         }
       }
       chart.update();
@@ -568,11 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (e.key === 'o' || e.key === 'O') {
       setMode('odyssey');
-    }
-    if (e.key === 't' || e.key === 'T') {
-      const isDark = document.documentElement.classList.contains('dark');
-      applyTheme(!isDark);
-      return;
     }
     if (e.key === 'p' || e.key === 'P') {
       setMode('deck');
